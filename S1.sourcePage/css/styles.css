@@ -1,0 +1,16 @@
+hr{
+    margin-top: 10rem;
+}
+
+.logo {
+    max-width: 25%;
+}
+
+.grayed-page {
+    background-color: #eeee;
+    max-width: 100%;
+}
+
+.form {
+    background-color: white;
+}
