@@ -8,7 +8,7 @@ block content
         .row.pb-5
             .col.col-lg-6.my-auto.p-4.border.container.form
                 .container.justify-content-center
-                    form.form-horizontal
+                    form.form-horizontal(method="post")
                         fieldset
                         legend.mt-0.mb-4 Login
                         .form-group.mt-3
@@ -17,7 +17,7 @@ block content
                         .form-group.mt-3
                             label.control-label(for='passwordInput') Password
                             input#passwordInput.form-control.input-md(name='passwordInput', type='password', placeholder='password', required='')
-                        button#loginBtn.btn.btn-primary.mt-4.mb-4(type='submit', name='loginBtn') Login
+                        button#loginBtn.btn.btn-primary.mt-4.mb-4(type='submit', name='loginBtn' value='login') Login
                     .row
                         .col-4
                             a(href='#') Forgot Password?
