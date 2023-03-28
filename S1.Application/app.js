@@ -48,29 +48,48 @@ app.listen(8080, function(){
 
 
 app.get("/", function(req,res) {
-   //res.send(req.sessionID);
-    var sql=require('mssql');
-   //TODO Database configurations
-    var config={
-       user:'root',
-       password: '1595',
-       server:'localhost',
-       port:3306,
-       database:'sys_db'
-   }
+    //res.send(req.sessionID);
+    var mysql = require('mysql2');
+//TODO Database configurations
+//     var config={
+//         user:'root',
+//         password: '1595',
+//         server:'DESKTOP-NNL0TNK',
+//         port:3306,
+//         database:'sys_db',
+//         hostname:'DESKTOP-NNL0TNK',
+//         dialect:'mysql',
+//    }
+    const connection = mysql.createConnection({
+        user: 'root',
+        password: '1595',
+        server: 'DESKTOP-NNL0TNK',
+        port: 3306,
+        database: 'sys_db',
+        host: 'DESKTOP-NNL0TNK',
+        //dialect: 'mysql',
+    });
 
-   sql.connect(config, function(err){
-       if(err) console.log(err);
+    connection.connect();
+    connection.query('select * from sys_db.sarst_login_accounts where user_id = 1', function(err, recordset){
+        if (err) throw err;
 
-       var request = new sql.Request();
-
-       res.send(request.query('select * from sarst_login_accounts', function(err, recordset){
-           if(err) console.log(err)
-
-           return recordset;
-       }));
-   })
- });
+        return recordset;
+    });
+});
+ //   sql.connect(config, function(err){
+ //       if(err) console.log(err);
+ //
+ //       var request = new sql.Request();
+ //
+ //       // DEBUG to show all login accounts on page upon successful connection
+ //       res.send(request.query('select * from sys_db.sarst_login_accounts', function(err, recordset){
+ //           if(err) console.log(err)
+ //
+ //           return recordset;
+ //       }));
+ //   })
+ // });
 
 
 app.post('/', function (req, res){
