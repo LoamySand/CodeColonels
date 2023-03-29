@@ -46,50 +46,41 @@ app.listen(8080, function(){
     console.log("Server started on port 8080")
 });
 
-
-app.get("/", function(req,res) {
-    //res.send(req.sessionID);
-    var mysql = require('mysql2');
+var mysql = require('mysql2');
 //TODO Database configurations
-//     var config={
-//         user:'root',
-//         password: '1595',
-//         server:'DESKTOP-NNL0TNK',
-//         port:3306,
-//         database:'sys_db',
-//         hostname:'DESKTOP-NNL0TNK',
-//         dialect:'mysql',
-//    }
-    const connection = mysql.createConnection({
-        user: 'root',
-        password: '1595',
-        server: 'DESKTOP-NNL0TNK',
-        port: 3306,
-        database: 'sys_db',
-        host: 'DESKTOP-NNL0TNK',
-        //dialect: 'mysql',
-    });
 
-    connection.connect();
-    connection.query('select * from sys_db.sarst_login_accounts where user_id = 1', function(err, recordset){
-        if (err) throw err;
-
-        return recordset;
-    });
+const connection = mysql.createConnection({
+    user: 'root',
+    password: '1595',
+    //server: 'DESKTOP-NNL0TNK',
+    port: 1433,
+    database: 'sys_db',
+    host: 'DESKTOP-NNL0TNK',
+    //dialect: 'mysql',
 });
- //   sql.connect(config, function(err){
- //       if(err) console.log(err);
- //
- //       var request = new sql.Request();
- //
- //       // DEBUG to show all login accounts on page upon successful connection
- //       res.send(request.query('select * from sys_db.sarst_login_accounts', function(err, recordset){
- //           if(err) console.log(err)
- //
- //           return recordset;
- //       }));
- //   })
- // });
+//
+connection.connect(function(err) {
+    if (err) {
+        console.error('error connecting: ', err);
+        return;
+    } else {
+        console.log('Connected to Sys_DB');
+        return;
+    }
+});
+// connection.query('SELECT * from sarst_login_accounts', function(err, rows, fields) {
+//     if(err) console.log(err);
+//     console.log('The solution is: ', rows);
+//     connection.end();
+// });
+app.get("/", function(req,res) {
+
+    // SEND WORKING FRONT END LOGIN PAGE COMMENT OUT FOR DATABASE CONFIG DEBUGGING
+    res.render(__dirname+"/views/index.pug", {title: "login"});
+
+    //res.send(req.sessionID);
+
+ });
 
 
 app.post('/', function (req, res){
