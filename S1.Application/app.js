@@ -7,10 +7,14 @@ const router = express.Router();
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
-//const sql = require('mssql');
+const mongoose = require('mongoose').default;
+const dotenv=require('dotenv');
+// connect to mongodb
+const mydb = require('./mongo.js');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const {MongoClient, ServerApiVersion} = require("mongodb");
 
 const app = express();
 app.set('view engine', 'pug');
@@ -46,40 +50,11 @@ app.listen(8080, function(){
     console.log("Server started on port 8080")
 });
 
-var mysql = require('mysql2');
-//TODO Database configurations
-
-const connection = mysql.createConnection({
-    user: 'root',
-    password: '1595',
-    //server: 'DESKTOP-NNL0TNK',
-    port: 1433,
-    database: 'sys_db',
-    host: 'DESKTOP-NNL0TNK',
-    //dialect: 'mysql',
-});
-//
-connection.connect(function(err) {
-    if (err) {
-        console.error('error connecting: ', err);
-        return;
-    } else {
-        console.log('Connected to Sys_DB');
-        return;
-    }
-});
-// connection.query('SELECT * from sarst_login_accounts', function(err, rows, fields) {
-//     if(err) console.log(err);
-//     console.log('The solution is: ', rows);
-//     connection.end();
-// });
 app.get("/", function(req,res) {
-
     // SEND WORKING FRONT END LOGIN PAGE COMMENT OUT FOR DATABASE CONFIG DEBUGGING
     res.render(__dirname+"/views/index.pug", {title: "login"});
-
+    console.log(mydb);
     //res.send(req.sessionID);
-
  });
 
 
