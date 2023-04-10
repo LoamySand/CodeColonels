@@ -30,7 +30,7 @@ const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+  .connect("mongodb+srv://leboyd:X3atUyrZDA$k8hA@cluster0.i17q6wj.mongodb.net/test", {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -60,7 +60,7 @@ app.listen(PORT, () => {
 
 function initial() {
   Role.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
+    if (!err && count == 0) {
       new Role({
         name: "user"
       }).save(err => {
@@ -90,6 +90,8 @@ function initial() {
 
         console.log("added 'admin' to roles collection");
       });
+    } else {
+      console.log(err);
     }
   });
 }
