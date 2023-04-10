@@ -30,6 +30,7 @@ const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
+    // DEBUG CONNECTION STRING MAY NEED TO BE CHANGED BETWEEN DEVELOPERS
   .connect("mongodb+srv://leboyd:woG5ARXCb4qOmj87@cluster0.fka9l0p.mongodb.net/test", {
     useNewUrlParser: true,
     useUnifiedTopology: true

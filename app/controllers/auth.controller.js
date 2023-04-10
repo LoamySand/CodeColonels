@@ -8,7 +8,8 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   const user = new User({
-    username: req.body.username,
+    fName: req.body.fName,
+    lName: req.body.fName,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
   });
