@@ -30,7 +30,7 @@ const db = require("./app/models");
 const Role = db.role;
 
 db.mongoose
-  .connect("mongodb+srv://leboyd:X3atUyrZDA$k8hA@cluster0.i17q6wj.mongodb.net/test", {
+  .connect("mongodb+srv://leboyd:woG5ARXCb4qOmj87@cluster0.fka9l0p.mongodb.net/test", {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })

@@ -12,17 +12,17 @@ module.exports = function(app) {
 
   app.get("/api/test/all", controller.allAccess);
 
-  app.get("/api/test/user", [authJwt.verifyToken], controller.providerBoard());
+  //app.get("/api/test/user", [authJwt.verifyToken], controller.providerBoard());
 
   app.get(
     "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isModerator],
+    [authJwt.verifyToken, authJwt.isAdmin],
     controller.adminBoard
   );
 
   app.get(
     "/api/test/root",
-    [authJwt.verifyToken, authJwt.isAdmin],
+    [authJwt.verifyToken, authJwt.isRoot],
     controller.rootBoard
   );
   app.get(
