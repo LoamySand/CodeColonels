@@ -15,12 +15,6 @@ module.exports = function(app) {
   //app.get("/api/test/user", [authJwt.verifyToken], controller.providerBoard());
 
   app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
-
-  app.get(
     "/api/test/root",
     [authJwt.verifyToken, authJwt.isRoot],
     controller.rootBoard
@@ -28,6 +22,12 @@ module.exports = function(app) {
   app.get(
       "/api/test/admin",
       [authJwt.verifyToken, authJwt.isAdmin],
+      controller.adminBoard
+  );
+  app.get(
+      "/api/test/admin",
+      [authJwt.verifyToken, authJwt.isProvider],
       controller.providerBoard
   );
+
 };

@@ -81,10 +81,41 @@ isRoot = (req, res, next) => {
     );
   });
 };
+isProvider = (req, res, next) => {
+  User.findById(req.userId).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+
+    Role.find(
+        {
+          _id: { $in: user.roles },
+        },
+        (err, roles) => {
+          if (err) {
+            res.status(500).send({ message: err });
+            return;
+          }
+
+          for (let i = 0; i < roles.length; i++) {
+            if (roles[i].name === "provider") {
+              next();
+              return;
+            }
+          }
+
+          res.status(403).send({ message: "Require Provider Role!" });
+          return;
+        }
+    );
+  });
+};
 
 const authJwt = {
   verifyToken,
   isAdmin,
   isRoot,
+  isProvider,
 };
 module.exports = authJwt;
