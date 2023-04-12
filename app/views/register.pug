@@ -1,0 +1,38 @@
+extends layout
+block content
+    .container.grayed-page
+        .row
+            .row.justify-content-center
+                img.logo.m-4(src='images/salvation-army-logo.png', alt='')
+                h2.text-center.m-5.mt-3 Salvation Army Resident Services Tracker
+        .row.pb-5
+            .col.col-lg-6.my-auto.p-4.border.container.form
+                .container.justify-content-center
+                    form.form-horizontal(method="post")
+                        fieldset
+                            legend.mt-0.mb-4 Request Registration
+                            .row.form-group.mt-3
+                                .col
+                                    input.form-control(type='text', name="fName", placeholder='First name', aria-label='First name')
+                                .col
+                                    input.form-control(type='text', name="lName", placeholder='Last name', aria-label='Last name')
+                            .form-group.mt-3
+                                label.control-label(for='requestedEmailInput') Email Address
+                                input#requestedEmailInput.form-control(name='email', type='email', placeholder='email@domain.com', required='')
+                            .form-group.mt-3
+                                label.control-label(for='requestedPasswordInput') Password
+                                input#requestedPasswordInput.form-control.input-md(name='password', type='password', placeholder='password', required='')
+                            .form-check-inline.mt-3
+                                input#requestedServiceProvider.form-check-input(type='radio', name='roles')
+                                label.form-check-label(for='requestedServiceProvider' value="provider")
+                                |  Service Provider
+                            .form-check-inline
+                                input#requestedAdmin.form-check-input(type='radio', name='roles')
+                                label.form-check-label(for='requestedAdmin' value="admin")
+                                |  Admin
+                            .form-check-inline
+                                input#requestedRoot.form-check-input(type='radio', name='roles')
+                                label.form-check-label(for='requestedRoot' value="root")
+                                |  Root
+                            .col-12
+                                button#loginBtn.btn.btn-primary.mt-4.mb-4(type='submit', name='requestBtn') Request Account
