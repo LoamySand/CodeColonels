@@ -23,7 +23,7 @@
     <!--container for login form and links-->
     <div class="col my-auto p-4 border container w-50 form">
         <div class="container justify-content-center">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="/login" method="post">
                 <fieldset>
                     <!-- Form Name -->
                     <legend class="mt-0 mb-4">Login</legend>
@@ -31,13 +31,13 @@
                     <!-- Text input-->
                     <div class="form-group mt-3">
                         <label class="control-label" for="emailInput">Email Address</label>
-                        <input id="emailInput" name="emailInput" type="email" placeholder="email@domain.com" class="form-control" required="">
+                        <input id="emailInput" name="email" type="email" placeholder="email@domain.com" class="form-control" required="">
                     </div>
 
                     <!-- Text input-->
                     <div class="form-group mt-3">
                         <label class="control-label" for="passwordInput">Password</label>
-                        <input id="passwordInput" name="passwordInput" type="password" placeholder="password" class="form-control input-md" required="">
+                        <input id="passwordInput" name="password" type="password" placeholder="password" class="form-control input-md" required="">
                     </div>
 
                     <!-- Button -->
