@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const hbs = require('hbs')
-const { UserCollection, RegistrationReqCollection }= require('./mongodb')
+const { UserCollection, RegistrationReqCollection }= require('./src/mongodb')
 
 app.use(express.static('public'));
 const templatePath = path.join(__dirname, '../templates')
