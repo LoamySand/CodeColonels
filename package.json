@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
+  "type": "commonjs",
   "author": "Code Colonels",
   "license": "ISC",
   "dependencies": {
@@ -24,7 +25,8 @@
     "mongoose": "^7.0.3",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^8.0.0"
+    "passport-local-mongoose": "^8.0.0",
+    "requirejs": "^2.3.6"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",

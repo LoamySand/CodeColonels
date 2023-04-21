@@ -3,9 +3,13 @@ const app = express()
 const path = require('path')
 const hbs = require('hbs')
 const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
-const DB = require('./src/mongodb')
+const DB = require('./scripts/mongodb')
 app.use(express.static('public'));
 const templatePath = path.join(__dirname, './templates')
+
+//Pathing
+app.use("/scripts", express.static(__dirname + '/scripts'));
+app.use("/models", express.static(__dirname + '/models'));
 
 
 app.use(express.json())

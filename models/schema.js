@@ -1,4 +1,10 @@
-let mongoose = require('mongoose')
+var requirejs = require('requirejs');
+// require(['require', 'mongoose'], function(require) {
+// });
+let mongoose = requirejs('mongoose')
+//var moduleName = 'mongoose';
+//require([moduleName], function(fooModule){
+    // do something with fooModule
 
 const LogInSchema = new mongoose.Schema({
     firstName: {
@@ -35,3 +41,7 @@ module.exports = {
     RegistrationReqCollection: new mongoose.model('registration-request', LogInSchema),
     RoleCollection: new mongoose.model('role', RoleSchema)
 }
+//})
+// export const UserCollection = new mongoose.model('users', LogInSchema);
+// export const RegistrationReqCollection = new mongoose.model('registration-request', LogInSchema);
+// export const RoleCollection = new mongoose.model('role', RoleSchema)
