@@ -2,10 +2,11 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const hbs = require('hbs')
-const { UserCollection, RegistrationReqCollection }= require('./src/mongodb')
-
+const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
+const DB = require('./src/mongodb')
 app.use(express.static('public'));
 const templatePath = path.join(__dirname, './templates')
+
 
 app.use(express.json())
 app.set('view engine', 'hbs')
