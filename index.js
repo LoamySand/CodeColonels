@@ -32,13 +32,12 @@ app.post('/signup', async (req, res) => {
     }
 
     await RegistrationReqCollection.insertMany([data])
-
+    //TODO Add info popup instructing user to wait
     res.render('login') // Once user signups, redirected to login page (Was home page)
 })
 
 //DEBUG TEST email=LDown@gmail.com password=password
 app.post('/login', async (req, res) => {
-
     try {
         const check = await UserCollection.findOne({
             email: req.body.email
@@ -72,6 +71,33 @@ app.post('/login', async (req, res) => {
 
     //res.render('home') ???
 })
+
+app.get('/root/registration-req', async (req, res) => {
+    let requests = RegistrationReqCollection;
+
+    let result = await requests.find({})
+        .then((requestData) => {
+            res.render('root/registration-req', { data: requestData })
+        })
+        .catch((err) => {
+            res.send('No registration requests')
+        })
+})
+
+app.post('/root/registration-req'), async (req, res) => {
+    const data = {
+        _id: req.body._id,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+        role: req.body.role
+    }
+
+    await UserCollection.insertMany([data])
+
+    res.send("An error has occured")
+}
 
 app.listen(process.env.PORT || 3000, "0.0.0.0", function(){
     console.log('port connected')

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            background-color: white;
+            width: 100%;
+        }
+        td, th {
+            border: 1px solid;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container grayed-page">
+        <h1>Registration Requests</h1>
+        <div class="item">
+            <table id="registrationTable">
+                <tr>
+                    <th>Index</th>
+                    <th>_id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Selected Role</th>
+                </tr>
+                {{#each data}}
+                    <tr>
+                        <td>{{@index}}</td>
+                        <td>{{_id}}</td>
+                        <td>{{firstName}} {{lastName}}</td>
+                        <td>{{email}}</td>
+                        <td>{{role}}</td>
+                        <td><Button class="button" id="approve_btn" onclick="approve(this)" value="Delete">Approve</Button><Button class="button" id="deny_btn" onclick="deny(this)" value="Delete">Deny</Button></td>
+                    </tr>
+                {{/each}}
+            </table>
+        </div>
+        <!--container for footer links-->
+        <div class="container">
+            <hr>
+            <footer class="footer mt-1 m-6 pt-2">
+                <!-- Links -->
+                <div class="row justify-content-center p-4">
+                    <div class="col-3"><a href="https://www.salvationarmyusa.org/usn/about/" class="text-decoration-none"><p class="text-center">About Salvation Army</p></a></div>
+                    <div class="col-3"><a href="https://www.salvationarmyusa.org/usn/employment-opportunities/" class="text-decoration-none"><p class="text-center">Employment Opportunities</p></a></div>
+                    <div class="col-3"><a href="https://www.salvationarmyusa.org/usn/contact/" class="text-decoration-none"><p class="text-center">Contact us</p></a></div>
+                </div>
+                <!-- socials --> <!--TODO align icons center in cols-->
+                <div class="row justify-content-center">
+                    <div class="col-2 align-item-center"><a href="#"><img src="img/facebookIcon.png" alt=""></a></div>
+                    <div class="col-2"><a href="#"><img src="/assets/images/linkedinIcon.png" alt=""></a></div>
+                    <div class="col-2"><a href="#"><img src="/assets/images/instagramIcon.png" alt=""></a></div>
+                    <div class="col-2"><a href="#"><img src="/assets/images/twitterIcon.png" alt=""></a></div>
+                </div>
+                <!-- copyright -->
+                <div class="row p-5 pb-0"><p class="text-center">© Copyright 2023 CodeColonels</p></div>
+            </footer>
+        </div>
+    </div>
+<script>
+    function approve(r){
+        var i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("registrationTable").deleteRow(i);
+        //TODO REMOVE FROM REGISTRATION_REQUEST COLLECTIONS
+    }
+</script>
+<script>
+    function deny(r){
+        var i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("registrationTable").deleteRow(i);
+        //TODO REMOVE FROM REGISTRATION_REQUEST COLLECTION
+        //TODO REMOVE FROM REGISTRATION_REQUEST COLLECTIONS ADD TO USER COLLECTION
+    }
+</script>
+</body>
+</html>
