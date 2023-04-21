@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "type": "commonjs",
+  "allowSyntheticDefaultImports": true,
+  "esModuleInterop": true,
+  "type": "module",
   "author": "Code Colonels",
   "license": "ISC",
   "dependencies": {

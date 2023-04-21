@@ -1,15 +1,26 @@
-const express = require('express')
+//const express = require('express')
+import express from 'express';
 const app = express()
-const path = require('path')
-const hbs = require('hbs')
-const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
-const DB = require('./scripts/mongodb')
+//const path = require('path')
+import {fileURLToPath} from 'url';
+import path from 'path';
+import {dirname} from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename)
+//const hbs = require('hbs')
+import hbs from 'hbs';
+//const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
+app.use("/models", express.static(__dirname + '/models'));
+import { UserCollection, RegistrationReqCollection, RoleCollection } from './models/schema.js';
+//const DB = require('./scripts/mongodb')
+import DB from './scripts/mongodb.js';
 app.use(express.static('public'));
 const templatePath = path.join(__dirname, './templates')
 
 //Pathing
 app.use("/scripts", express.static(__dirname + '/scripts'));
-app.use("/models", express.static(__dirname + '/models'));
+app.use("/models", express.static(__dirname+'/models'));
+
 
 
 app.use(express.json())
@@ -17,7 +28,7 @@ app.set('view engine', 'hbs')
 app.set('views', templatePath)
 app.use(express.urlencoded({ extended: false }))
 
-var bcrypt = require("bcryptjs");
+import bcrypt from "bcryptjs";
 
 app.get('/', (req, res) => {
     res.render('login')

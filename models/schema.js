@@ -1,7 +1,9 @@
-var requirejs = require('requirejs');
+//var requirejs = require('requirejs');
 // require(['require', 'mongoose'], function(require) {
 // });
-let mongoose = requirejs('mongoose')
+import mongoose from 'mongoose';
+//onst { Schema } = require("mongoose");
+//let mongoose = require('mongoose')
 //var moduleName = 'mongoose';
 //require([moduleName], function(fooModule){
     // do something with fooModule
@@ -36,12 +38,12 @@ const RoleSchema = new mongoose.Schema({
     }
 })
 
-module.exports = {
-    UserCollection: new mongoose.model('users', LogInSchema),
-    RegistrationReqCollection: new mongoose.model('registration-request', LogInSchema),
-    RoleCollection: new mongoose.model('role', RoleSchema)
-}
+// module.exports = {
+//     UserCollection: new mongoose.model('users', LogInSchema),
+//     RegistrationReqCollection: new mongoose.model('registration-request', LogInSchema),
+//     RoleCollection: new mongoose.model('role', RoleSchema)
+// }
 //})
-// export const UserCollection = new mongoose.model('users', LogInSchema);
-// export const RegistrationReqCollection = new mongoose.model('registration-request', LogInSchema);
-// export const RoleCollection = new mongoose.model('role', RoleSchema)
+export const UserCollection = new mongoose.model('users', LogInSchema);
+export const RegistrationReqCollection = new mongoose.model('registration-request', LogInSchema);
+export const RoleCollection = new mongoose.model('role', RoleSchema)

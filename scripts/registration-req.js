@@ -1,8 +1,4 @@
-// require(['require', '../models/schema'], function (require) {
-//     var schema = require('../models/schema');
-// });
-
-const {RegistrationReqCollection, UserCollection, RoleCollection} = require(require);
+import {RegistrationReqCollection, UserCollection, RoleCollection} from "/models/schema.js";
 //import {RegistrationReqCollection, UserCollection, RoleCollection} from '/models/schema.js';
 
 async function approve(r){
