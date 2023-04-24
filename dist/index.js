@@ -9,15 +9,17 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 //const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
-app.use("/models", express.static(__dirname + '/models'));
+//app.use("/models", express.static(__dirname + '/models'));
 import { UserCollection, RegistrationReqCollection, connectDB } from './models/schema.js';
 //const DB = require('./scripts/mongodb')
 //import DB from './scripts/mongodb.js';
 //app.use(express.static('/dist'));
 const templatePath = path.join(__dirname, './templates');
 //Pathing
-app.use("/scripts", express.static(__dirname + '/scripts'));
-app.use("/models", express.static(__dirname + '/models'));
+//app.use("/dist", express.static(__dirname+'./dist'))
+app.use(express.static('dist'));
+//app.use("/scripts", express.static(__dirname + '/scripts'));
+//app.use("/models", express.static(__dirname+'/models'));
 app.use(express.json());
 app.set('view engine', 'hbs');
 app.set('views', templatePath);

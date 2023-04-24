@@ -19,9 +19,10 @@ import { UserCollection, RegistrationReqCollection, RoleCollection, connectDB } 
 const templatePath = path.join(__dirname, './templates')
 
 //Pathing
-app.use("/dist", express.static(__dirname+'./dist'))
-app.use("/scripts", express.static(__dirname + '/scripts'));
-app.use("/models", express.static(__dirname+'/models'));
+//app.use("/dist", express.static(__dirname+'./dist'))
+app.use(express.static('dist'));
+//app.use("/scripts", express.static(__dirname + '/scripts'));
+//app.use("/models", express.static(__dirname+'/models'));
 
 
 
