@@ -1,7 +1,7 @@
 //var requirejs = require('requirejs');
 // require(['require', 'mongoose'], function(require) {
 // });
-import mongoose from 'mongoose';
+import mongoose from '../node_modules/mongoose/types/index.d.ts';node_modules\@types\express\index.d.ts
 //onst { Schema } = require("mongoose");
 //let mongoose = require('mongoose')
 //var moduleName = 'mongoose';
@@ -38,6 +38,16 @@ const RoleSchema = new mongoose.Schema({
     }
 })
 
+export function connectDB() {
+    mongoose.connect("mongodb+srv://client-access:4pnVVFDmaCrZ9Hok@cluster.u2fc0fu.mongodb.net/sarst")
+        .then(() => {
+            console.log("mongodb connected")
+        })
+        .catch(() => {
+            console.log("failed to connect")
+        })
+}
+
 // module.exports = {
 //     UserCollection: new mongoose.model('users', LogInSchema),
 //     RegistrationReqCollection: new mongoose.model('registration-request', LogInSchema),
@@ -46,4 +56,4 @@ const RoleSchema = new mongoose.Schema({
 //})
 export const UserCollection = new mongoose.model('users', LogInSchema);
 export const RegistrationReqCollection = new mongoose.model('registration-request', LogInSchema);
-export const RoleCollection = new mongoose.model('role', RoleSchema)
+export const RoleCollection = new mongoose.model('role', RoleSchema);

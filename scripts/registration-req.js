@@ -1,6 +1,6 @@
 import {RegistrationReqCollection, UserCollection, RoleCollection} from "/models/schema.js";
 //import {RegistrationReqCollection, UserCollection, RoleCollection} from '/models/schema.js';
-
+import mongoose from 'mongoose';
 async function approve(r){
 var i = r.parentNode.parentNode.rowIndex;
 document.getElementById("registrationTable").deleteRow(i);
@@ -12,6 +12,7 @@ document.getElementById("registrationTable").deleteRow(i);
     let requests = RegistrationReqCollection;
 
     let user = await requests.findOne({ _id: id._id })
+    console.log("found user")
 
     await UserCollection.insertMany([user])
 
@@ -26,3 +27,4 @@ document.getElementById("registrationTable").deleteRow(i);
 //TODO REMOVE FROM REGISTRATION_REQUEST COLLECTION
 //TODO REMOVE FROM REGISTRATION_REQUEST COLLECTIONS ADD TO USER COLLECTION
 }
+

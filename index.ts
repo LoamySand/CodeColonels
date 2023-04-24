@@ -11,9 +11,9 @@ const __dirname = dirname(__filename)
 import hbs from 'hbs';
 //const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
 app.use("/models", express.static(__dirname + '/models'));
-import { UserCollection, RegistrationReqCollection, RoleCollection } from './models/schema.js';
+import { UserCollection, RegistrationReqCollection, RoleCollection, connectDB } from './models/schema.js';
 //const DB = require('./scripts/mongodb')
-import DB from './scripts/mongodb.js';
+//import DB from './scripts/mongodb.js';
 app.use(express.static('public'));
 const templatePath = path.join(__dirname, './templates')
 
@@ -29,7 +29,7 @@ app.set('views', templatePath)
 app.use(express.urlencoded({ extended: false }))
 
 import bcrypt from "bcryptjs";
-
+connectDB();
 app.get('/', (req, res) => {
     res.render('login')
 })
