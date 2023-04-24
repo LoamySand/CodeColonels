@@ -2,11 +2,11 @@
   "name": "sarst",
   "version": "1.0.0",
   "description": "Capstone Project",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.ts",
-    "build": "webpack",
+    "start": "node dist/index.js",
+    "build": "npx tsc",
     "tsc": "tsc"
   },
   "type": "module",
@@ -32,6 +32,7 @@
     "webpack": "^5.80.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
     "@types/hbs": "^4.0.1",
     "@types/node": "^17.0.10",
