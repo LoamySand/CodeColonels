@@ -37,13 +37,14 @@
                     <th>Selected Role</th>
                 </tr>
                 {{#each data}}
-                    <tr id="request">
+                    <tr class="request">
                         <td>{{@index}}</td>
                         <td class="id">{{_id}}</td>
                         <td>{{firstName}} {{lastName}}</td>
                         <td>{{email}}</td>
                         <td>{{role}}</td>
-                        <td><Button class="button" id="approve_btn"  value="Approve">Approve</Button><Button class="button" id="deny_btn" onclick="deny(this)" value="Delete">Deny</Button></td>
+                        <td><Button class="button" id="approve_btn" value="Approve">Approve</Button>
+                            <Button class="button" id="deny_btn" onclick="deny(this)" value="Delete">Deny</Button></td>
                     </tr>
                 {{/each}}
             </table>
@@ -70,6 +71,11 @@
             </footer>
         </div>
     </div>
+<!--    <script>-->
+<!--        function approveReq(){-->
+<!--            this.body.style.backgroundColor = "red";-->
+<!--        }-->
+<!--    </script>-->
 <script type="javascript" src="dist/scripts/registration-req.js"></script>
 </body>
 </html>
