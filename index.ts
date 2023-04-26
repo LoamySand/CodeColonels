@@ -33,32 +33,14 @@ app.use(express.urlencoded({ extended: false }))
 
 import bcrypt from "bcryptjs";
 connectDB();
+
+
+//*****************************************  SPRINT 1  *********************************************************************************//
+//*****************************************  Login  ******************************************************************************//
 app.get('/', (req, res) => {
     res.render('login')
 })
 
-app.get('/signup', (req, res) => {
-    res.render('signup')
-})
-
-app.post('/signup', async (req, res) => {
-
-    //TODO VALIDATE THAT EMAIL IS UNIQUE
-    const data = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, 8),
-        role: req.body.role
-    }
-
-    await RegistrationReqCollection.insertMany([data])
-    //TODO Add info popup instructing user to wait
-    res.render('login') // Once user signups, redirected to login page (Was home page)
-})
-
-//DEBUG TEST PROVIDER email=LDown@gmail.com password=password
-//DEBUG TEST ROOT email=RootTest@gmail.com  password=password
 app.post('/login', async (req, res) => {
     try {
         const check = await UserCollection.findOne({
@@ -96,25 +78,32 @@ app.post('/login', async (req, res) => {
     //res.render('home') ???
 })
 
-// ROOT ROUTES
-app.get('/root/home', (req,res)=>{
-    res.render('root/home');
+//*****************************************  Register  ******************************************************************************//
+
+app.get('/signup', (req, res) => {
+    res.render('signup')
 })
 
-app.get('/root/setup', async (req,res)=>{
-    let services = ServicesCollection;
+app.post('/signup', async (req, res) => {
 
-    await services.find({})
-        .then((requestData) => {
-            res.render('root/setup', { data: requestData })
-        })
-        .catch((err) => {
-            res.send('No services')
-        })
+    //TODO VALIDATE THAT EMAIL IS UNIQUE
+    const data = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, 8),
+        role: req.body.role
+    }
+
+    await RegistrationReqCollection.insertMany([data])
+    //TODO Add info popup instructing user to wait
+    res.render('login') // Once user signups, redirected to login page (Was home page)
 })
-app.get('/root/report-and-analysis', (req,res)=>{
-    res.render('root/report-and-analysis');
-})
+
+//DEBUG TEST PROVIDER email=LDown@gmail.com password=password
+//DEBUG TEST ROOT email=RootTest@gmail.com  password=password
+
+//*****************************************  Review Registration Request  *******************************************************************//
 
 app.get('/root/registration-req', async (req, res) => {
     let requests = RegistrationReqCollection;
@@ -128,16 +117,7 @@ app.get('/root/registration-req', async (req, res) => {
         })
 })
 
-app.post('/root/setup', async(req,res)=>{
 
-    const data={
-        title: req.body.title,
-        description: req.body.description,
-        permanent: false
-    }
-    await ServicesCollection.insertMany([data])
-    res.render('root/setup')
-})
 app.post('/root/registration-req'), async (req, res) => {
     const data = {
         _id: req.body._id,
@@ -152,6 +132,71 @@ app.post('/root/registration-req'), async (req, res) => {
 
     //res.send("An error has occured")
 }
+
+
+//*****************************************  SPRINT 2  ********************************************************************************//
+//****************************************  Setup Services******************************************************************************//
+app.get('/root/setup', async (req,res)=>{
+    let services = ServicesCollection;
+
+    await services.find({})
+        .then((requestData) => {
+            res.render('root/setup', { data: requestData })
+        })
+        .catch((err) => {
+            res.send('No services')
+        })
+})
+
+app.post('/root/setup', async(req,res)=>{
+
+    const data={
+        title: req.body.title,
+        description: req.body.description,
+        permanent: false
+    }
+    await ServicesCollection.insertMany([data])
+    res.render('root/setup')
+})
+
+//********************************************* SPRINT 3 *****************************************************************************//
+//*********************************************  Services Data entry  *************************************************************************//
+
+// ROOT ROUTES
+app.get('/root/home', (req,res)=>{
+    res.render('root/home');
+})
+
+app.post('/root/home', (req,res)=>{
+    // INSERT PROVIDED SERVICE
+
+    res.render('root/home');
+})
+app.get('/root/resident-search-by-name', (req,res)=>{
+    res.render('root/resident-search-by-name');
+})
+app.post('/root/resident-search-by-name', (req,res)=>{
+    // PROVIDE LIST OF MATCHING RESIDENTS
+
+})
+
+app.get('/root/resident-search-by-feature', (req,res)=>{
+    res.render('root/resident-search-by-feature');
+})
+
+app.post('/root/resident-search-by-feature', (req,res)=>{
+    // PROVIDE LIST OF MATCHING RESIDENTS
+
+})
+
+//***********************************************  SPRINT 4  *****************************************************************************//
+//****************************************** Generate Reports  *************************************************************//
+app.get('/root/report-and-analysis', (req,res)=>{
+    res.render('root/report-and-analysis');
+})
+
+
+//***********************************************************************************************************************************//
 //"0.0.0.0"
 app.listen(port,"0.0.0.0",  ()=> {
     console.log('port connected')

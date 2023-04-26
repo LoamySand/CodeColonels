@@ -14,7 +14,7 @@ import { UserCollection, RegistrationReqCollection, connectDB, ServicesCollectio
 //const DB = require('./scripts/mongodb')
 //import DB from './scripts/mongodb.js';
 //app.use(express.static('/dist'));
-const templatePath = path.join(__dirname, './dist');
+const templatePath = path.join(__dirname, './templates');
 //Pathing
 //app.use("/dist", express.static(__dirname+'./dist'))
 app.use(express.static('dist'));
@@ -22,7 +22,7 @@ app.use(express.static('dist'));
 //app.use("/models", express.static(__dirname+'/models'));
 app.use(express.json());
 app.set('view engine', 'hbs');
-app.set('views', path.join(templatePath, './templates'));
+app.set('views', templatePath);
 app.use(express.urlencoded({ extended: false }));
 import bcrypt from "bcryptjs";
 connectDB();

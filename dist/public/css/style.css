@@ -81,16 +81,42 @@ button{
     text-decoration: none;
 }
 
-.nav-bar li a:hover:not(.active){
+.nav-item a:hover:not(.active){
     background-color: #fa5570;
 }
 
-.active {
+.nav-bar .active {
     background-color: #b70023;
 }
 .nav-bar li a.active{
     color: white;
 }
+
+.dropdown{
+    position:inherit;
+}
+.dropdown-menu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: black;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    background-color: grey;
+}
+
+.dropdown-menu a:hover {
+
+    color: red;
+    background-color:green;
+
+}
+/*.dropdown-menu{*/
+/*    background-color: grey;*/
+/*}*/
+
+/*.navbar .dropdown li a:hover {*/
+/*    background-color: #b5b5b5;*/
+/*}*/
 /***************************/
 /********** Registration Request **********/
 table {
