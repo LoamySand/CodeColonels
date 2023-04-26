@@ -101,8 +101,16 @@ app.get('/root/home', (req,res)=>{
     res.render('root/home');
 })
 
-app.get('/root/setup', (req,res)=>{
-    res.render('root/setup');
+app.get('/root/setup', async (req,res)=>{
+    let services = ServicesCollection;
+
+    await services.find({})
+        .then((requestData) => {
+            res.render('root/setup', { data: requestData })
+        })
+        .catch((err) => {
+            res.send('No services')
+        })
 })
 app.get('/root/report-and-analysis', (req,res)=>{
     res.render('root/report-and-analysis');

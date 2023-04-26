@@ -29,7 +29,23 @@
             Add Services
         </button>
         <div class="servicesContainer">
-            <!--possibly ul and li to display/add new services?-->
+            <table class="registrationTable" id="registrationTable">
+                <tr>
+                    <th>Index</th>
+                    <th>Service</th>
+                    <th>Description</th>
+                </tr>
+                {{#each data}}
+                    <tr class="service">
+                        <td>{{@index}}</td>
+                        <td>{{title}}</td>
+                        <td>{{description}}</td>
+                        <td><Button class="button" id="edit_btn" value="edit" >Edit</Button>
+                            <!--Maybe dont include this functionality? per dr. baker's comment-->
+<!--                            <Button class="button" id="delete_btn" value="delete">Delete</Button></td>-->
+                    </tr>
+                {{/each}}
+            </table>
         </div>
 
 
