@@ -50,10 +50,6 @@ export function connectDB() {
 //     RoleCollection: new mongoose.model('role', RoleSchema)
 // }
 //})
-
-// LOGIN REGISTRATION SCHEMA
 export const UserCollection = mongoose.model('users', LogInSchema);
 export const RegistrationReqCollection = mongoose.model('registration-request', LogInSchema);
 //export const RoleCollection = mongoose.model('role', RoleSchema);
-
-// SERVICES SCHEMA
