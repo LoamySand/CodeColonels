@@ -23,31 +23,40 @@
             <li><a class = "" href="/root/registration-req">Review Registrations</a></li>
         </ul>
     </header>
-    <div class="container grayed-page">
-        <div class="row justify-content-center">
-            <h1>Current Set-Up Services</h1>
-        </div>
-        <button type = "button" class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal">
-            Add Services
-        </button>
-        <div class="servicesContainer">
-            <table class="registrationTable" id="registrationTable">
-                <tr>
-                    <th>Index</th>
-                    <th>Service</th>
-                    <th>Description</th>
-                </tr>
-                {{#each data}}
-                    <tr class="service">
-                        <td>{{@index}}</td>
-                        <td>{{title}}</td>
-                        <td>{{description}}</td>
-                        <td><Button class="button" id="edit_btn" value="edit" >Edit</Button>
-                            <!--Maybe dont include this functionality? per dr. baker's comment-->
-<!--                            <Button class="button" id="delete_btn" value="delete">Delete</Button></td>-->
+    <div class="container grayed-page ">
+        <div class="setup-page-content col">
+            <div class="row justify-content-center">
+                <h1>Current Set-Up Services</h1>
+            </div>
+            <div class="row justify-content-end">
+                <button type = "button" class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal">
+                    Add Services
+                </button>
+            </div>
+            <div class="servicesContainer row justify-content-center">
+                <table class="servicesTable table table-striped" id="servicesTable">
+                    <thead>
+                    <tr>
+                        <th scope="col">Index</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Description</th>
+                        <th scope="col"></th>
                     </tr>
-                {{/each}}
-            </table>
+                    </thead>
+                    <tbody>
+                    {{#each data}}
+                        <tr class="service">
+                            <th scope="row">{{@index}}</th>
+                            <td>{{title}}</td>
+                            <td>{{description}}</td>
+                            <td><Button class="button" id="edit_btn" value="edit" >Edit</Button>
+                                <!--Maybe dont include this functionality? per dr. baker's comment-->
+    <!--                            <Button class="button" id="delete_btn" value="delete">Delete</Button></td>-->
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
 

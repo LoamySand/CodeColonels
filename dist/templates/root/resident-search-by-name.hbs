@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resident Search By Name</title>
+    <title>Root Home</title>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
 <body>
@@ -13,25 +17,97 @@
     <div class = "nav-logo">
         <img src = "/public/assets/images/shield.svg" alt="Salvation Army Logo">
     </div>
-    <ul>
+    <ul class="nav nav-tabs">
         <!--Sprint 3-->
-        <li><a class = "" href="/root/home">Record Services</a></li>
-        <li><a class = "active" href="/root/resident-search">Record Services</a></li>
-        <li><a class = "" href="/root/report-and-analysis">Generate Reports</a></li>
-        <li><a class = "" href="/root/setup">Admin Set-Up</a></li>
-        <li><a class = "" href="/root/registration-req">Review Registrations</a></li>
+        <li class="nav-item"><a class = "" href="/root/home">Record Services</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" id="navbarDropdown"data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Search Residents</a>
+            <div class="dropdown-menu">
+                <a class = "dropdown-item" href="/root/resident-search-by-name">By Name</a>
+                <a class = "dropdown-item" href="/root/resident-search-by-feature">By Features</a>
+            </div>
+        </li>
+        <li class="nav-item"><a class = "" href="/root/report-and-analysis">Generate Reports</a></li>
+        <li class="nav-item"><a class = "" href="/root/setup">Admin Set-Up</a></li>
+        <li class="nav-item"><a class = "" href="/root/registration-req">Review Registrations</a></li>
     </ul>
 </header>
 
 <div class="container grayed-page">
-    //TODO add drawer for SEARCH BY NAME and SEARCH BY ATTRIBUTE
-    <div class="row justify-content-center">
-        <h1>Current Set-Up Services</h1>
+    <div class="row justify-content-center mb-4">
+        <h1>Search For Resident By name</h1>
     </div>
-    <button type = "button" class="btn btn-primary" data-toggle="modal" data-target="#addServiceModal">
-        Search by Name
-    </button>
-    // POSSIBLE SCOPE CUT no search by attribute
+    <div class="col my-auto p-3 border container w-50 form">
+        <div class="container justify-content-center">
+            <form class="form-horizontal" action="/root/resident-search-by-name" method="post">
+                    <!-- Form Name -->
+                <legend class="mt-0 mb-4">Search</legend>
+                <div class="form-row align-items-center">
+                    <!-- Text input-->
+                    <div class="col-auto">
+                        <input id="fNameInput" name="firstName" type="text" placeholder="First" class="form-control">
+                    </div>
+                    <div class="col-auto">
+                        <input id="lNameInput" name="lastName" type="text" placeholder="Last" class="form-control">
+                    </div>
+                    <!-- Button -->
+                    <div class="col-auto ml-4">
+                        <button type="submit" id="search_btn" name="search_btn" class="btn btn-primary mt-4 mb-4">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+
+<!-- PERHAPS TO BE PLACED IN POPUP ON CLICK SEARCH-->
+    <div class="resultsContainer form col my-auto p-3 border container w-50">
+        <div class="label row justify-content-center mb-4">
+            <h2>Results</h2>
+        </div>
+        <table class="resultsTable table table-striped" id="resultsTable">
+            <thead>
+                <tr>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Features</th>
+    <!--PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID-->
+                    <th scope="col">ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="residentMatch">
+                    <th scope="row">1</th>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>Blonde, Green eyes, Waluigi tattoo</td>
+                </tr>
+            </tbody>
+
+<!--            FOR USE WHEN DATABASE IS SUCCESFULLY QUERIED-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th scope="col">First</th>-->
+<!--                <th scope="col">Last</th>-->
+<!--                <th scope="col">Features</th>-->
+<!--                &lt;!&ndash;PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID&ndash;&gt;-->
+<!--                <th scope="col">ID</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            {{#each data}}-->
+<!--            <tr class="residentMatch">-->
+<!--                <th scope="row">{{@index}}</th>-->
+<!--                <td>{{firstName}}</td>-->
+<!--                <td>{{lastName}}</td>-->
+<!--                &lt;!&ndash;WILL NEED TO ITERATE THRU THE ARRAY OF FEATURES&ndash;&gt;-->
+<!--                <td>{{features}}</td>-->
+<!--            </tr>-->
+<!--            {{/each}}-->
+<!--            </tbody>-->
+
+        </table>
+    </div>
 
 
     <!--container for footer links-->
@@ -56,6 +132,11 @@
         </footer>
     </div>
 </div>
+<script
+        src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
 </html>

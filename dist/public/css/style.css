@@ -34,6 +34,7 @@ button{
 }
 
 /*********** NAV BAR ***********/
+
 .nav-bar {
     height: fit-content;
     background-color: #e4002b;
@@ -46,6 +47,8 @@ button{
     left: 0;
 }
 
+
+
 .nav-logo {
     float: left;
     padding: 5px 10px 5px 20px;
@@ -57,7 +60,10 @@ button{
     max-height: 35px;
 
 }
-
+.nav-tabs{
+    width: fit-content;
+    height: fit-content;
+}
 .nav-bar ul{
     list-style-type: none;
     margin: 0;
@@ -85,7 +91,7 @@ button{
     background-color: #fa5570;
 }
 
-.nav-bar .active {
+.nav-item .active {
     background-color: #b70023;
 }
 .nav-bar li a.active{
@@ -95,21 +101,40 @@ button{
 .dropdown{
     position:inherit;
 }
+
+.dropdown-toggle{
+
+}
+.dropdown-toggle.active {
+    background:#b70023 !important;
+    color:white !important;
+    border:none;
+}
+
+.dropdown-toggle:hover {
+    height: fit-content;
+    border:none;
+    border-bottom: 2px solid #ccc;
+
+}
+
 .dropdown-menu a {
     display: block;
-    padding: 0.5rem 1rem;
     color: black;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
     background-color: grey;
 }
-
-.dropdown-menu a:hover {
-
-    color: red;
-    background-color:green;
-
+.dropdown-menu a:hover{
+    background-color: white;
 }
+/*.navbar-nav > li > .dropdown-menu a:active {     background-color: red;  }*/
+/*.dropdown-menu a:hover {*/
+
+/*    color: red;*/
+/*    background-color:green;*/
+
+/*}*/
 /*.dropdown-menu{*/
 /*    background-color: grey;*/
 /*}*/
@@ -118,19 +143,44 @@ button{
 /*    background-color: #b5b5b5;*/
 /*}*/
 /***************************/
+/********** Tables  **********/
+.table thead{
+    background-color: gray;
+    color: white;
+}
+
 /********** Registration Request **********/
-table {
+.registrationTable {
     font-family: arial, sans-serif;
-    border-collapse: collapse;
+    background-color: white;
+    width: 70%;
+    margin-top: 2rem;
+}
+.registrationTable td, th {
+    text-align: left;
+    padding: 8px;
+}
+/*.registrationTable tr:nth-child(even) {*/
+/*    background-color: #dddddd;*/
+/*}*/
+
+/********** SetupServices **********/
+
+.servicesTable {
+    font-family: arial, sans-serif;
     background-color: white;
     width: 100%;
     margin-top: 2rem;
 }
-table td, th {
-    border: 1px solid;
+.servicesTable td, th {
     text-align: left;
     padding: 8px;
 }
-table tr:nth-child(even) {
-    background-color: #dddddd;
+/*.servicesTable tr:nth-child(even) {*/
+/*    background-color: #dddddd;*/
+/*}*/
+
+.setup-page-content{
+    width:65%;
+    margin:0 auto;
 }

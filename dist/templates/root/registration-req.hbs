@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!--add fonts/css here-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel='stylesheet' type="text/css" href="/public/css/style.css">
-
+    <link rel="stylesheet" href="/public/css/style.css">
+    <style>
+        body, div, table, tr, th {
+            border-style: none !important;}
+    </style>
 </head>
 <body>
     <header class="nav-bar">
@@ -26,26 +29,31 @@
         <div class="row justify-content-center">
             <h1>Registration Requests</h1>
         </div>
-        <div class="item">
-            <table class="registrationTable" id="registrationTable">
+        <div class="row justify-content-center">
+            <table class="registrationTable table table-striped" id="registrationTable">
                 <tr>
-                    <th>Index</th>
-                    <th>_id</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Selected Role</th>
-                </tr>
-                {{#each data}}
-                    <tr class="request">
-                        <td>{{@index}}</td>
-                        <td class="id">{{_id}}</td>
-                        <td>{{firstName}} {{lastName}}</td>
-                        <td>{{email}}</td>
-                        <td>{{role}}</td>
-                        <td><Button class="button" id="approve_btn" value="Approve" >Approve</Button>
-                            <Button class="button" id="deny_btn" onclick="deny(this)" value="Delete">Deny</Button></td>
-                    </tr>
-                {{/each}}
+                    <thead>
+                        <th scope="col">Index</th>
+                        <th scope="col">_id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Selected Role</th>
+                        <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each data}}
+                            <tr class="request">
+                                <th scope="row">{{@index}}</th>
+                                <td class="id">{{_id}}</td>
+                                <td>{{firstName}} {{lastName}}</td>
+                                <td>{{email}}</td>
+                                <td>{{role}}</td>
+                                <td><Button class="button" id="approve_btn" value="Approve" >Approve</Button>
+                                    <Button class="button" id="deny_btn" onclick="deny(this)" value="Delete">Deny</Button></td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
             </table>
         </div>
         <!--container for footer links-->
@@ -75,6 +83,12 @@
 <!--            this.body.style.backgroundColor = "red";-->
 <!--        }-->
 <!--    </script>-->
-<script type="javascript" src="dist/scripts/registration-req.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.6.4.min.js"
+            integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script type="javascript" src="dist/scripts/registration-req.js"></script>
 </body>
 </html>
