@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Root Home</title>
+
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+
+</head>
+<body>
+<header class="nav-bar">
+    <div class = "nav-logo">
+        <img src = "/public/assets/images/shield.svg" alt="Salvation Army Logo">
+    </div>
+    <ul class="nav nav-tabs">
+        <!--Sprint 3-->
+        <li class="nav-item"><a class = "" href="/root/home">Record Services</a></li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" id="navbarDropdown"data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Search Residents</a>
+            <div class="dropdown-menu">
+                <a class = "dropdown-item" href="/root/resident-search-by-name">Search By Name</a>
+                <a class = "dropdown-item" href="/root/resident-search-by-feature">Search By Features</a>
+                <a class = "dropdown-item" href="/root/add-resident-profile">New Resident</a>
+            </div>
+        </li>
+        <li class="nav-item"><a class = "" href="/root/report-and-analysis">Generate Reports</a></li>
+        <li class="nav-item"><a class = "" href="/root/setup">Admin Set-Up</a></li>
+        <li class="nav-item"><a class = "" href="/root/registration-req">Review Registrations</a></li>
+    </ul>
+</header>
+<div class="container grayed-page">
+    <div class="row justify-content-center mb-4">
+        <h1>Search For Resident By name</h1>
+    </div>
+    <div class="col my-auto p-3 border container w-50 form">
+        <div class="container justify-content-center">
+            <form class="form-horizontal" action="/root/resident-search-by-name" method="post">
+                <!-- Form Name -->
+                <legend class="mt-0 mb-4">Search</legend>
+                <!--TODO FIGURE OUT CHIP INPUT SCRIPT FOR ADDING AND REMOVING INPUTS FROM ARRAY-->
+                <input class="tagInput" type="text" value="html,input,tag" data-role="tagsinput">
+                <!-- Button -->
+                <div class="col-auto ml-4">
+                    <button type="submit" id="search_btn" name="search_btn" class="btn btn-primary mt-4 mb-4">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+
+    <!-- PERHAPS TO BE PLACED IN POPUP ON CLICK SEARCH-->
+    <div class="resultsContainer form col my-auto p-3 border container w-50">
+        <div class="label row justify-content-center mb-4">
+            <h2>Results</h2>
+        </div>
+        <table class="resultsTable table table-striped" id="resultsTable">
+            <thead>
+            <tr>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Features</th>
+                <!--PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID-->
+                <th scope="col">ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="residentMatch">
+                <th scope="row">1</th>
+                <td>John</td>
+                <td>Doe</td>
+                <td>Blonde, Green eyes, Waluigi tattoo</td>
+            </tr>
+            </tbody>
+
+            <!--            FOR USE WHEN DATABASE IS SUCCESFULLY QUERIED-->
+            <!--            <thead>-->
+            <!--            <tr>-->
+            <!--                <th scope="col">First</th>-->
+            <!--                <th scope="col">Last</th>-->
+            <!--                <th scope="col">Features</th>-->
+            <!--                &lt;!&ndash;PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID&ndash;&gt;-->
+            <!--                <th scope="col">ID</th>-->
+            <!--            </tr>-->
+            <!--            </thead>-->
+            <!--            <tbody>-->
+                <!--            {{#each data}}-->
+            <!--            <tr class="residentMatch">-->
+            <!--                <th scope="row">{{@index}}</th>-->
+            <!--                <td>{{firstName}}</td>-->
+            <!--                <td>{{lastName}}</td>-->
+            <!--                &lt;!&ndash;WILL NEED TO ITERATE THRU THE ARRAY OF FEATURES&ndash;&gt;-->
+            <!--                <td>{{features}}</td>-->
+            <!--            </tr>-->
+                <!--            {{/each}}-->
+            <!--            </tbody>-->
+
+        </table>
+    </div>
+
+
+    <!--container for footer links-->
+    <div class="container">
+        <hr>
+        <footer class="footer mt-1 m-6 pt-2">
+            <!-- Links -->
+            <div class="row justify-content-center p-4">
+                <div class="col-3"><a href="https://www.salvationarmyusa.org/usn/about/" class="text-decoration-none"><p class="text-center">About Salvation Army</p></a></div>
+                <div class="col-3"><a href="https://www.salvationarmyusa.org/usn/employment-opportunities/" class="text-decoration-none"><p class="text-center">Employment Opportunities</p></a></div>
+                <div class="col-3"><a href="https://www.salvationarmyusa.org/usn/contact/" class="text-decoration-none"><p class="text-center">Contact us</p></a></div>
+            </div>
+            <!-- socials --> <!--TODO align icons center in cols-->
+            <div class="row justify-content-center">
+                <div class="col-2 align-item-center"><a href="#"><img src="/public/assets/images/facebookIcon.png" alt=""></a></div>
+                <div class="col-2"><a href="#"><img src="/public/assets/images/linkedinIcon.png" alt=""></a></div>
+                <div class="col-2"><a href="#"><img src="/public/assets/images/instagramIcon.png" alt=""></a></div>
+                <div class="col-2"><a href="#"><img src="/public/assets/images/twitterIcon.png" alt=""></a></div>
+            </div>
+            <!-- copyright -->
+            <div class="row p-5 pb-0"><p class="text-center">© Copyright 2023 CodeColonels</p></div>
+        </footer>
+    </div>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.6.4.min.js"
+        integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+<script type="javascript" src="dist/scripts/resident-search-by-feature.js"></script>
+</body>
+</html>
