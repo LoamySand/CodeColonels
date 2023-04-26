@@ -12,7 +12,7 @@ const __dirname = dirname(__filename)
 import hbs from 'hbs';
 //const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
 //app.use("/models", express.static(__dirname + '/models'));
-import { UserCollection, RegistrationReqCollection, connectDB } from './models/schema.js';
+import {UserCollection, RegistrationReqCollection, connectDB, ServicesCollection} from './models/schema.js';
 //const DB = require('./scripts/mongodb')
 //import DB from './scripts/mongodb.js';
 //app.use(express.static('/dist'));
@@ -42,6 +42,8 @@ app.get('/signup', (req, res) => {
 })
 
 app.post('/signup', async (req, res) => {
+
+    //TODO VALIDATE THAT EMAIL IS UNIQUE
     const data = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -118,6 +120,16 @@ app.get('/root/registration-req', async (req, res) => {
         })
 })
 
+app.post('/root/setup', async(req,res)=>{
+
+    const data={
+        title: req.body.title,
+        description: req.body.description,
+        permanent: false
+    }
+    await ServicesCollection.insertMany([data])
+    res.render('root/setup')
+})
 app.post('/root/registration-req'), async (req, res) => {
     const data = {
         _id: req.body._id,
@@ -130,7 +142,7 @@ app.post('/root/registration-req'), async (req, res) => {
 
     await UserCollection.insertMany([data])
 
-    res.send("An error has occured")
+    //res.send("An error has occured")
 }
 //"0.0.0.0"
 app.listen(port,"0.0.0.0",  ()=> {
