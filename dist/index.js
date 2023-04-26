@@ -44,7 +44,8 @@ app.post('/signup', async (req, res) => {
     //TODO Add info popup instructing user to wait
     res.render('login'); // Once user signups, redirected to login page (Was home page)
 });
-//DEBUG TEST email=LDown@gmail.com password=password
+//DEBUG TEST PROVIDER email=LDown@gmail.com password=password
+//DEBUG TEST ROOT email=RootTest@gmail.com  password=password
 app.post('/login', async (req, res) => {
     try {
         const check = await UserCollection.findOne({
@@ -54,12 +55,12 @@ app.post('/login', async (req, res) => {
         if (passwordIsValid) {
             switch (check.role) { // checks user role and redirects to appropriate homepage
                 case 'Root':
-                    res.render('root/home');
+                    res.redirect(301, 'root/home');
                     break;
-                case 'Admin':
+                case "Admin":
                     res.render('admin/home');
                     break;
-                case 'Provider':
+                case "Provider":
                     res.render('provider/home');
                     break;
                 default:
@@ -67,17 +68,29 @@ app.post('/login', async (req, res) => {
             }
         }
         else {
+            //TODO MAKE THIS A POPUP OR A SCREEN WITH A BACK OPTION
             res.send("Wrong password");
         }
     }
     catch {
+        //TODO MAKE THIS A POPUP OR A SCREEN WITH A BACK OPTION
         res.send("Wrong details");
     }
     //res.render('home') ???
 });
+// ROOT ROUTES
+app.get('/root/home', (req, res) => {
+    res.render('root/home');
+});
+app.get('/root/setup', (req, res) => {
+    res.render('root/setup');
+});
+app.get('/root/report-and-analysis', (req, res) => {
+    res.render('root/report-and-analysis');
+});
 app.get('/root/registration-req', async (req, res) => {
     let requests = RegistrationReqCollection;
-    let result = await requests.find({})
+    await requests.find({})
         .then((requestData) => {
         res.render('root/registration-req', { data: requestData });
     })

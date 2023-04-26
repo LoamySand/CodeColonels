@@ -1,0 +1,12 @@
+/*----- header -----*/
+/*--CHANGE SETTINGS TO FIT THEME!!--*/
+
+
+#header-img img{
+    text-align: center;
+    display: block;
+    margin-top: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 100%;
+}

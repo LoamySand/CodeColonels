@@ -13,8 +13,86 @@ button{
 .grayed-page {
     background-color: #eeee;
     max-width: 100%;
+    max-height:100%;
 }
 
 .form {
     background-color: white;
+}
+
+/*********** NAV BAR ***********/
+.nav-bar {
+    height: fit-content;
+    background-color: #e4002b;
+    border-bottom: 2px solid #ccc;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-bottom: 100rem;
+}
+
+.nav-logo {
+    float: left;
+    padding: 5px 10px 5px 20px;
+}
+
+.nav-logo img {
+    float: left;
+    max-width: 200px;
+    max-height: 35px;
+
+}
+
+.nav-bar ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.nav-bar li{
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+}
+
+.nav-bar li a {
+    display: block;
+    height: fit-content;
+    color: #ededed;
+    font-size: medium;
+    text-align: center;
+    padding: 12px 16px;
+    text-decoration: none;
+}
+
+.nav-bar li a:hover:not(.active){
+    background-color: #fa5570;
+}
+
+.active {
+    background-color: #b70023;
+}
+.nav-bar li a.active{
+    color: white;
+}
+/***************************/
+/********** Registration Request **********/
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    background-color: white;
+    width: 100%;
+    margin-top: 2rem;
+}
+table td, th {
+    border: 1px solid;
+    text-align: left;
+    padding: 8px;
+}
+table tr:nth-child(even) {
+    background-color: #dddddd;
 }

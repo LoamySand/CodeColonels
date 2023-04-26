@@ -26,17 +26,17 @@ const LogInSchema = new mongoose.Schema({
         required: true
     },
     role: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'role'
-    }
-})
-
-const RoleSchema = new mongoose.Schema({
-    title: {
         type: String,
         required: true
     }
 })
+
+// const RoleSchema = new mongoose.Schema({
+//     title: {
+//         type: String,
+//         required: true
+//     }
+// })
 
 export function connectDB() {
     mongoose.connect("mongodb+srv://client-access:4pnVVFDmaCrZ9Hok@cluster.u2fc0fu.mongodb.net/sarst")
@@ -56,4 +56,4 @@ export function connectDB() {
 //})
 export const UserCollection = mongoose.model('users', LogInSchema);
 export const RegistrationReqCollection = mongoose.model('registration-request', LogInSchema);
-export const RoleCollection = mongoose.model('role', RoleSchema);
+//export const RoleCollection = mongoose.model('role', RoleSchema);

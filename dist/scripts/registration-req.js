@@ -18,15 +18,8 @@ async function approveReq() {
 }
 $(document).ready(function () {
     var i = $(this).parentNode.parentNode.rowIndex;
-    document.getElementById("approve_btn").onclick = function () { approveReq; };
     //$(document).on('click', '#approve_btn', approveReq())
-    //document.getElementsByClassName("approve")[i].addEventListener("click", approveReq);
-    //$('.request').on('click', '#approve_btn', approveReq())
-    // var approveA = $("<td>").attr("href","#").addClass("saveBtn").text("Approve");
-    // var approveBtn = $("#approve_btn").attr("aria-disabled",false).append(approveA);
-    // $(document).find(".actions ul").prepend(approveBtn)
-    //
-    //             var i = this.parentNode.parentNode.rowIndex;
+    document.getElementsByClassName("approve")[i].addEventListener("click", approveReq);
     //             var table = document.getElementById("registrationTable") as HTMLTableElement;
     //             table.deleteRow(i);
     // //TODO REMOVE FROM REGISTRATION_REQUEST COLLECTIONS

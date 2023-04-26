@@ -8,27 +8,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel='stylesheet' type="text/css" href="/public/css/style.css">
     <style>
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            background-color: white;
-            width: 100%;
-        }
-        td, th {
-            border: 1px solid;
-            text-align: left;
-            padding: 8px;
-        }
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
+
     </style>
 </head>
 <body>
+<header class="nav-bar">
+    <div class = "nav-logo">
+        <img src = "/public/assets/images/shield.svg" alt="Salvation Army Logo">
+    </div>
+    <ul>
+        <!--Sprint 3-->
+        <li><a class = "" href="/root/home">Record Services</a></li>
+        <li><a class = "" href="/root/report-and-analysis">Generate Reports</a></li>
+        <li><a class = "" href="/root/setup">Admin Set-Up</a></li>
+        <li><a class = "active" href="/root/registration-req">Review Registrations</a></li>
+    </ul>
+</header>
     <div class="container grayed-page">
         <h1>Registration Requests</h1>
         <div class="item">
-            <table id="registrationTable">
+            <table class="registrationTable" id="registrationTable">
                 <tr>
                     <th>Index</th>
                     <th>_id</th>
