@@ -1,5 +1,18 @@
+body
+{
+    padding-top: 3rem;
+}
+
+body.login{
+    padding: 0;
+}
+
 hr{
     margin-top: 10rem;
+}
+
+h1{
+    padding-top: 3rem;
 }
 
 button{
@@ -31,7 +44,6 @@ button{
     position: fixed;
     top: 0;
     left: 0;
-    margin-bottom: 100rem;
 }
 
 .nav-logo {
