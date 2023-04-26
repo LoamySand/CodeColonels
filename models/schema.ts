@@ -76,4 +76,4 @@ export const RegistrationReqCollection = mongoose.model('registration-request', 
 
 // SERVICES SCHEMA
 
-export const AvailableServices = mongoose.model('services', ServiceSchema);
+export const ServicesCollection = mongoose.model('services', ServiceSchema);
