@@ -130,20 +130,7 @@ button{
 .dropdown-menu a:hover{
     background-color: white;
 }
-/*.navbar-nav > li > .dropdown-menu a:active {     background-color: red;  }*/
-/*.dropdown-menu a:hover {*/
 
-/*    color: red;*/
-/*    background-color:green;*/
-
-/*}*/
-/*.dropdown-menu{*/
-/*    background-color: grey;*/
-/*}*/
-
-/*.navbar .dropdown li a:hover {*/
-/*    background-color: #b5b5b5;*/
-/*}*/
 /***************************/
 /********** Tables  **********/
 .table thead{
@@ -188,6 +175,7 @@ button{
 }
 
 .bootstrap-tagsinput {
+    padding:.5rem;
     width: 100%;
     color:black;
 }
@@ -198,4 +186,11 @@ button{
     margin-right: 2px;
     color: white;
     border-radius: 4px;
+}
+
+.check-label-h6{
+    padding-right:1rem;
+}
+.gender-p{
+
 }

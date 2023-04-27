@@ -2,11 +2,15 @@
 // require(['require', 'mongoose'], function(require) {
 // });
 import mongoose from 'mongoose';
+//import Inc from 'mongoose-sequence';
+//const AutoIncrement = Inc(mongoose);
 //onst { Schema } = require("mongoose");
 //let mongoose = require('mongoose')
 //var moduleName = 'mongoose';
 //require([moduleName], function(fooModule){
 // do something with fooModule
+//const connection = mongoose.createConnection("mongodb+srv://client-access:4pnVVFDmaCrZ9Hok@cluster.u2fc0fu.mongodb.net/sarst")
+//Inc.initialize(connection);
 export function connectDB() {
     mongoose.connect("mongodb+srv://client-access:4pnVVFDmaCrZ9Hok@cluster.u2fc0fu.mongodb.net/sarst")
         .then(() => {
@@ -15,7 +19,10 @@ export function connectDB() {
         .catch(() => {
         console.log("failed to connect");
     });
+    //const db = mongoose.connection;
+    // db.collection("ResidentCollection").createIndex({residentID : 1}, {unique : true});
 }
+export const db = mongoose.connection;
 // LOGIN REGISTRATION SCHEMA
 const LogInSchema = new mongoose.Schema({
     firstName: {
@@ -57,8 +64,125 @@ const ServiceSchema = new mongoose.Schema({
     permanent: {
         type: Boolean,
         required: true,
+    },
+    effectiveStart: {
+        type: String,
+        required: false
+    },
+    effectiveEnd: {
+        type: String,
+        required: false
     }
-    //Perhaps start and end date? Not required.
+});
+var counterSchema = new mongoose.Schema({
+    "_id": { "type": String, "required": true },
+    "seq": { "type": Number, "default": 0 }
+});
+var counter = mongoose.model('counter', counterSchema);
+//TODO ResidentSchema
+const ResidentSchema = new mongoose.Schema({
+    residentID: { "type": String,
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    sex: {
+        type: String,
+        enum: ['Male', 'Female', 'Intersex'],
+        required: true
+    },
+    gender: {
+        type: String,
+        enum: ['Man', 'Woman', 'Transgender', 'Non-binary', 'Gender fluid', 'Other'],
+        required: true
+    },
+    pronouns: {
+        type: String,
+        enum: ['He/Him/His', 'She/Her/Hers', 'They/Them/Theirs'],
+        required: true
+    },
+    dob: {
+        type: Date,
+        required: true
+    },
+    features: {
+        type: [String],
+        required: false
+    }
+});
+ResidentSchema.pre("save", function (next) {
+    var doc = this;
+    counter.findByIdAndUpdate({ "_id": "userID" }, { "$inc": { "seq": 1 } }, { new: true }, function (error, counter) {
+        if (error)
+            return next(error);
+        doc.residentID = counter.seq.toString();
+        next();
+    });
+});
+//ResidentSchema.plugin(AutoIncrement, { inc_field: 'residentID', disable_hooks: true});
+//ResidentSchema.plugin(AutoIncrement, {inc_field: 'residentID'});
+//TODO EventsSchema
+const EventSchema = new mongoose.Schema({
+    forResident: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true
+    },
+    date: {
+        type: Date,
+        required: true
+    },
+    notes: {
+        type: String,
+        required: true
+    }
+});
+//TODO DisciplinaryActionSchema
+const DisciplinaryActionSchema = new mongoose.Schema({
+    forResident: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true
+    },
+    date: {
+        type: Date,
+        required: true
+    },
+    type: {
+        type: String,
+        enum: ['Warning', 'Education', 'Last Chance Contract', 'Step Away'],
+        required: true
+    },
+    notes: {
+        type: String,
+        required: true
+    }
+});
+//TODO ResidentStaySchema
+const ResidentStaySchema = new mongoose.Schema({
+    forResident: {
+        type: mongoose.Schema.Types.ObjectId,
+        require: true
+    },
+    checkIn: {
+        type: Date,
+        required: true
+    },
+    checkOut: {
+        type: Date,
+        required: true
+    },
+    providedServices: {
+        type: [mongoose.Schema.Types.ObjectId],
+        required: true
+    },
+    events: {
+        type: [mongoose.Schema.Types.ObjectId],
+        required: false
+    }
 });
 // LOGIN REGISTRATION SCHEMA
 export const UserCollection = mongoose.model('users', LogInSchema);
@@ -66,3 +190,4 @@ export const RegistrationReqCollection = mongoose.model('registration-request', 
 //export const RoleCollection = mongoose.model('role', RoleSchema);
 // SERVICES SCHEMA
 export const ServicesCollection = mongoose.model('services', ServiceSchema);
+export const ResidentCollection = mongoose.model('residents', ResidentSchema);

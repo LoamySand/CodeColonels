@@ -12,7 +12,13 @@ const __dirname = dirname(__filename)
 import hbs from 'hbs';
 //const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
 //app.use("/models", express.static(__dirname + '/models'));
-import {UserCollection, RegistrationReqCollection, connectDB, ServicesCollection} from './models/schema.js';
+import {
+    UserCollection,
+    RegistrationReqCollection,
+    connectDB,
+    ServicesCollection,
+    ResidentCollection
+} from './models/schema.js';
 //const DB = require('./scripts/mongodb')
 //import DB from './scripts/mongodb.js';
 //app.use(express.static('/dist'));
@@ -149,14 +155,17 @@ app.get('/root/setup', async (req,res)=>{
 })
 
 app.post('/root/setup', async(req,res)=>{
-
+    const start = new Date(req.body.effectiveStart).toLocaleDateString();
+    const end = new Date(req.body.effectiveEnd).toLocaleDateString();
     const data={
         title: req.body.title,
         description: req.body.description,
-        permanent: false
+        permanent: false,
+        effectiveStart: start,
+        effectiveEnd: end
     }
     await ServicesCollection.insertMany([data])
-    res.render('root/setup')
+    res.redirect('back');
 })
 
 //********************************************* SPRINT 3 *****************************************************************************//
@@ -176,7 +185,9 @@ app.get('/root/resident-search-by-name', (req,res)=>{
     res.render('root/resident-search-by-name');
 })
 app.post('/root/resident-search-by-name', (req,res)=>{
-    // PROVIDE LIST OF MATCHING RESIDENTS
+    //TODO PROVIDE LIST OF MATCHING RESIDENTS via form input
+
+    res.redirect('back');
 
 })
 
@@ -185,7 +196,35 @@ app.get('/root/resident-search-by-feature', (req,res)=>{
 })
 
 app.post('/root/resident-search-by-feature', (req,res)=>{
-    // PROVIDE LIST OF MATCHING RESIDENTS
+    //TODO PROVIDE LIST OF MATCHING RESIDENTS via chip input (or textField if needed)
+
+
+    res.redirect('back');
+
+})
+app.get('/root/add-resident-profile', (req,res)=>{
+
+    res.render('root/add-resident-profile');
+})
+
+app.post('/root/add-resident-profile', async(req,res)=>{
+    //TODO Popup with resident id
+    const resident= {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        sex: req.body.sex,
+        gender:req.body.gender,
+        pronouns:req.body.pronoun,
+        dob:req.body.dob,
+        //TEST
+        features: ['blonde', 'blue eyes', 'luigi tattoo']
+        //
+    }
+    await ResidentCollection.create(resident);
+    // TODO if not popup, redirect with profile page for resident with id
+    res.render('root/add-resident-profile');
+
+    // TODO interate thru each span to get values for feature array <span class="tag label label-info">tattoos<span data-role="remove">
 
 })
 
