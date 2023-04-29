@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
@@ -53,88 +52,91 @@
                     </div>
                     <!-- Button -->
                     <div class="col-auto ml-4">
-                        <button type="button" id="search_btn" name="search_btn" class="btn btn-primary mt-4 mb-4"
-                        data-toggle="modal" data-target="#resultModal" form="searchByNameForm">Search</button>
+                        <button type="submit" id="search_btn" name="search_btn" class="btn btn-primary mt-4 mb-4"
+                         form="searchByNameForm"><span data-toggle="modal" data-target="#resultModal">Search</span></button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
     <hr>
-
-
-
-    <!-- TESTING SEARCH RESULTS MODAL POP-UP -->
-    <!-- Modal -->
-<div class="modal" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="resultModal">Search Results</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- PERHAPS TO BE PLACED IN POPUP ON CLICK SEARCH -->
     <div class="resultsContainer form col my-auto p-3 border container ">
         <div class="label row justify-content-center mb-4">
             <h2>Results</h2>
         </div>
         <table class="resultsTable table table-striped" id="resultsTable">
             <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Features</th>
-    <!--PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID-->
-                </tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Features</th>
+                <!--PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID-->
+            </tr>
             </thead>
             <tbody>
+            {{#each data}}
                 <tr class="residentMatch">
-                    <th scope="row">sarst000010</th>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>Blonde, Green eyes, Waluigi tattoo</td>
+                    <th scope="row"><span>sarst</span>{{residentID}}</th>
+                    <td>{{firstName}}</td>
+                    <td>{{lastName}}</td>
+                    <td>{{dob}}</td>
+                    <td>{{features}}</td>
                 </tr>
+            {{/each}}
             </tbody>
         </table>
     </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
-
-<!--            FOR USE WHEN DATABASE IS SUCCESFULLY QUERIED-->
+    <!-- TESTING SEARCH RESULTS MODAL POP-UP -->
+    <!-- Modal -->
+<!--<div class="modal" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog modal-lg" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="resultModal">Search Results</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        &lt;!&ndash; PERHAPS TO BE PLACED IN POPUP ON CLICK SEARCH &ndash;&gt;-->
+<!--    <div class="resultsContainer form col my-auto p-3 border container ">-->
+<!--        <div class="label row justify-content-center mb-4">-->
+<!--            <h2>Results</h2>-->
+<!--        </div>-->
+<!--        <table class="resultsTable table table-striped" id="resultsTable">-->
 <!--            <thead>-->
-<!--            <tr>-->
-<!--                <th scope="col">First</th>-->
-<!--                <th scope="col">Last</th>-->
-<!--                <th scope="col">Features</th>-->
-<!--                &lt;!&ndash;PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID&ndash;&gt;-->
-<!--                <th scope="col">ID</th>-->
-<!--            </tr>-->
+<!--                <tr>-->
+<!--                    <th scope="col">ID</th>-->
+<!--                    <th scope="col">First</th>-->
+<!--                    <th scope="col">Last</th>-->
+<!--                    <th scope="col">Features</th>-->
+<!--    &lt;!&ndash;PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID&ndash;&gt;-->
+<!--                </tr>-->
 <!--            </thead>-->
 <!--            <tbody>-->
 <!--            {{#each data}}-->
-<!--            <tr class="residentMatch">-->
-<!--                <th scope="row">{{@index}}</th>-->
-<!--                <td>{{firstName}}</td>-->
-<!--                <td>{{lastName}}</td>-->
-<!--                &lt;!&ndash;WILL NEED TO ITERATE THRU THE ARRAY OF FEATURES&ndash;&gt;-->
-<!--                <td>{{features}}</td>-->
-<!--            </tr>-->
+<!--                <tr class="residentMatch">-->
+<!--                    <th scope="row"><span>sarst</span>{{residentID}}</th>-->
+<!--                    <td>{{firstName}}</td>-->
+<!--                    <td>{{lastName}}</td>-->
+<!--                    <td>{{dob}}</td>-->
+<!--                    <td>{{features}}</td>-->
+<!--                </tr>-->
 <!--            {{/each}}-->
 <!--            </tbody>-->
-
-
-
+<!--        </table>-->
+<!--    </div>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
     <!--container for footer links-->
     <div class="container">
@@ -158,13 +160,19 @@
         </footer>
     </div>
 </div>
+
 <script
         src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
         crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    // function modal_overload() {
+    //     const search_btn = document.getElementById('search_btn');
+    //     const resultModal = document.getElementById('resultModal');
+    //     resultModal.show(search_btn).
+    // }
+</script>
 </body>
 </html>

@@ -78,18 +78,22 @@
                     <th scope="col">ID</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
+                    <th scope="col">Date of Birth</th>
                     <th scope="col">Features</th>
     <!--PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID-->
 
                 </tr>
             </thead>
             <tbody>
+            {{#each data}}
                 <tr class="residentMatch">
-                    <th scope="row">sarst000010</th>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>Blonde, Green eyes, Waluigi tattoo</td>
+                    <th scope="row"><span>sarst</span>{{residentID}}</th>
+                    <td>{{firstName}}</td>
+                    <td>{{lastName}}</td>
+                    <td>{{dob}}</td>
+                    <td>{{features}}</td>
                 </tr>
+            {{/each}}
             </tbody>
         </table>
     </div>

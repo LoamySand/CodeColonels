@@ -130,12 +130,21 @@ app.post('/root/home', (req, res) => {
     // INSERT PROVIDED SERVICE
     res.render('root/home');
 });
+var resultArray = [];
 app.get('/root/resident-search-by-name', (req, res) => {
     res.render('root/resident-search-by-name');
 });
-app.post('/root/resident-search-by-name', (req, res) => {
+app.post('/root/resident-search-by-name', async (req, res) => {
+    // Reset results array every time search button is pressed
+    resultArray.length = 0;
     //TODO PROVIDE LIST OF MATCHING RESIDENTS via form input
-    res.redirect('back');
+    const queryData = [
+        { firstName: req.body.firstName },
+        { lastName: req.body.lastName }
+    ];
+    var cursor = await ResidentCollection.find({ '$or': queryData });
+    await cursor.forEach(function (doc) { resultArray.push(doc); });
+    res.render('root/resident-search-by-name', { data: resultArray });
 });
 app.get('/root/resident-search-by-feature', (req, res) => {
     res.render('root/resident-search-by-feature');
@@ -149,6 +158,7 @@ app.get('/root/add-resident-profile', (req, res) => {
 });
 app.post('/root/add-resident-profile', async (req, res) => {
     //TODO Popup with resident id
+    const dob = new Date(req.body.dob).toLocaleDateString();
     await updateCounter();
     var count = await counters.findOne({}, { seq: 1, _id: 0 });
     var newResidentID = count.seq;
@@ -158,7 +168,7 @@ app.post('/root/add-resident-profile', async (req, res) => {
         sex: req.body.sex,
         gender: req.body.gender,
         pronouns: req.body.pronoun,
-        dob: req.body.dob,
+        dob: dob,
         residentID: newResidentID,
         //TEST
         features: ['blonde', 'blue eyes', 'luigi tattoo']
