@@ -1,7 +1,7 @@
 //var requirejs = require('requirejs');
 // require(['require', 'mongoose'], function(require) {
 // });
-import mongoose from 'mongoose'
+import mongoose, {Schema} from 'mongoose'
 //import Inc from 'mongoose-sequence';
 //const AutoIncrement = Inc(mongoose);
 //onst { Schema } = require("mongoose");
@@ -25,6 +25,31 @@ export function connectDB() {
    // db.collection("ResidentCollection").createIndex({residentID : 1}, {unique : true});
 }
 export const db = mongoose.connection;
+
+// export function insertDocument(doc, targetCollection) {
+//     while (1) {
+//
+//         var cursor = targetCollection.find( {}, { _id: 1 } ).sort( { _id: -1 } ).limit(1);
+//         var seq;
+//         if( cursor._id == 0) {
+//             seq = 1;
+//         } else {
+//             seq = cursor.next()._id + 1;
+//         }
+//         doc._id = seq;
+//
+//         var results = targetCollection.insertMany([doc]);
+//
+//         if( results.hasWriteError() ) {
+//             if( results.writeError.code == 11000 /* dup key */ )
+//                 continue;
+//             else
+//                 console.log( "unexpected error inserting data: ");
+//         }
+//
+//         break;
+//     }
+//}
 // LOGIN REGISTRATION SCHEMA
 const LogInSchema = new mongoose.Schema({
     firstName: {
@@ -82,16 +107,11 @@ const ServiceSchema = new mongoose.Schema({
 
 })
 
-var counterSchema = new mongoose.Schema({
-    "_id": { "type": String, "required": true },
-    "seq": { "type": Number, "default": 0 }
-});
-
-var counter = mongoose.model('counter', counterSchema);
 //TODO ResidentSchema
 const ResidentSchema = new mongoose.Schema({
-    residentID: { "type": String,
-        "required": true
+    residentID: {
+        type: Number,
+        default: 0
     },
     firstName: {
         type: String,
@@ -126,14 +146,12 @@ const ResidentSchema = new mongoose.Schema({
         required: false
     }
 })
-ResidentSchema.pre("save", function () {
-    var doc = this;
-    counter.findByIdAndUpdate(
-        { "_id": "userID" },
-        { "$inc": { "seq": 1 } },
-        {new:true})
 
-});
+const CountersSchema = new mongoose.Schema({
+    seq:{
+        type:Number
+    }
+})
 
 //ResidentSchema.plugin(AutoIncrement, { inc_field: 'residentID', disable_hooks: true});
 
@@ -197,6 +215,19 @@ const ResidentStaySchema = new mongoose.Schema({
     }
 
 })
+
+export var IDCount;
+export async function updateCounter() {
+
+    IDCount = await counters.findOne({}, {seq:1, _id:0});
+    //console.log(count.seq)
+    IDCount = IDCount.seq + 1;
+    //console.log(count)
+    await counters.updateOne({}, {seq: IDCount});
+    IDCount = await counters.findOne({}, {seq:1, _id:0})
+    IDCount = IDCount.seq;
+};
+
 // LOGIN REGISTRATION SCHEMA
 export const UserCollection = mongoose.model('users', LogInSchema);
 export const RegistrationReqCollection = mongoose.model('registration-request', LogInSchema);
@@ -206,3 +237,5 @@ export const RegistrationReqCollection = mongoose.model('registration-request', 
 
 export const ServicesCollection = mongoose.model('services', ServiceSchema);
 export const ResidentCollection = mongoose.model('residents', ResidentSchema);
+
+export const counters=mongoose.model('counters', CountersSchema, 'counters');

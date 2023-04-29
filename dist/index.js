@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 //const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
 //app.use("/models", express.static(__dirname + '/models'));
-import { UserCollection, RegistrationReqCollection, connectDB, ServicesCollection, ResidentCollection } from './models/schema.js';
+import { UserCollection, RegistrationReqCollection, connectDB, ServicesCollection, ResidentCollection, counters, updateCounter } from './models/schema.js';
 //const DB = require('./scripts/mongodb')
 //import DB from './scripts/mongodb.js';
 //app.use(express.static('/dist'));
@@ -26,8 +26,7 @@ app.set('views', templatePath);
 app.use(express.urlencoded({ extended: false }));
 import bcrypt from "bcryptjs";
 connectDB();
-//*****************************************  SPRINT 1  *********************************************************************************//
-//*****************************************  Login  ******************************************************************************//
+//*****************************************  SPRINT 1 Login  *********************************************************************************//
 app.get('/', (req, res) => {
     res.render('login');
 });
@@ -63,6 +62,7 @@ app.post('/login', async (req, res) => {
     }
     //res.render('home') ???
 });
+//***********************************************************************************************************************//
 //*****************************************  Register  ******************************************************************************//
 app.get('/signup', (req, res) => {
     res.render('signup');
@@ -159,6 +159,9 @@ app.get('/root/add-resident-profile', (req, res) => {
 });
 app.post('/root/add-resident-profile', async (req, res) => {
     //TODO Popup with resident id
+    await updateCounter();
+    var count = await counters.findOne({}, { seq: 1, _id: 0 });
+    var newResidentID = count.seq;
     const resident = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -166,11 +169,20 @@ app.post('/root/add-resident-profile', async (req, res) => {
         gender: req.body.gender,
         pronouns: req.body.pronoun,
         dob: req.body.dob,
+        residentID: newResidentID,
         //TEST
         features: ['blonde', 'blue eyes', 'luigi tattoo']
         //
     };
-    await ResidentCollection.create(resident);
+    await ResidentCollection.insertMany([resident]);
+    //var cursor = ResidentCollection.find({}, {residentID:1, _id:0}).sort({residentID:-1}).limit(1);
+    //var maxID = cursor[0];
+    //var newID=maxID++;
+    //var maxID=1;
+    // await ResidentCollection.updateOne(
+    //     {residentID:0},
+    //         {$set: {residentID: 4}}
+    // );
     // TODO if not popup, redirect with profile page for resident with id
     res.render('root/add-resident-profile');
     // TODO interate thru each span to get values for feature array <span class="tag label label-info">tattoos<span data-role="remove">
