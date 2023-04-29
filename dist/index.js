@@ -1,25 +1,15 @@
-//const express = require('express')
 import express from 'express';
 const app = express();
 const port = Number(process.env.PORT) || 3000;
-//const path = require('path')
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-//const { UserCollection, RegistrationReqCollection, RoleCollection } = require('./models/schema')
-//app.use("/models", express.static(__dirname + '/models'));
 import { UserCollection, RegistrationReqCollection, connectDB, ServicesCollection, ResidentCollection, counters, updateCounter } from './models/schema.js';
-//const DB = require('./scripts/mongodb')
-//import DB from './scripts/mongodb.js';
-//app.use(express.static('/dist'));
-const templatePath = path.join(__dirname, './templates');
 //Pathing
-//app.use("/dist", express.static(__dirname+'./dist'))
+const templatePath = path.join(__dirname, './templates');
 app.use(express.static('dist'));
-//app.use("/scripts", express.static(__dirname + '/scripts'));
-//app.use("/models", express.static(__dirname+'/models'));
 app.use(express.json());
 app.set('view engine', 'hbs');
 app.set('views', templatePath);
@@ -175,14 +165,6 @@ app.post('/root/add-resident-profile', async (req, res) => {
         //
     };
     await ResidentCollection.insertMany([resident]);
-    //var cursor = ResidentCollection.find({}, {residentID:1, _id:0}).sort({residentID:-1}).limit(1);
-    //var maxID = cursor[0];
-    //var newID=maxID++;
-    //var maxID=1;
-    // await ResidentCollection.updateOne(
-    //     {residentID:0},
-    //         {$set: {residentID: 4}}
-    // );
     // TODO if not popup, redirect with profile page for resident with id
     res.render('root/add-resident-profile');
     // TODO interate thru each span to get values for feature array <span class="tag label label-info">tattoos<span data-role="remove">
