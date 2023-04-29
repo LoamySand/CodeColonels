@@ -123,6 +123,7 @@ app.post('/root/setup', async (req, res) => {
 //********************************************* SPRINT 3 *****************************************************************************//
 //*********************************************  Services Data entry  *************************************************************************//
 // ROOT ROUTES
+// Check in Resident
 app.get('/root/home', (req, res) => {
     res.render('root/home');
 });
@@ -130,13 +131,21 @@ app.post('/root/home', (req, res) => {
     // INSERT PROVIDED SERVICE
     res.render('root/home');
 });
-var resultArray = [];
+// Record resident service
+app.get('/root/resident-services', (req, res) => {
+    res.render('root/resident-services');
+});
+app.post('/root/resident-services', (req, res) => {
+    res.render('root/resident-services');
+});
+// initalize global search results
 app.get('/root/resident-search-by-name', (req, res) => {
     res.render('root/resident-search-by-name');
 });
 app.post('/root/resident-search-by-name', async (req, res) => {
+    var resultArray = [];
     // Reset results array every time search button is pressed
-    resultArray.length = 0;
+    //resultArray.length = 0;
     //TODO PROVIDE LIST OF MATCHING RESIDENTS via form input
     const queryData = [
         { firstName: req.body.firstName },
