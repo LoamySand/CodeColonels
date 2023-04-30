@@ -6,7 +6,7 @@ import path from 'path';
 import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-import { UserCollection, RegistrationReqCollection, connectDB, ServicesCollection, ResidentCollection, counters, updateCounter } from './models/schema.js';
+import { UserCollection, RegistrationReqCollection, connectDB, ServicesCollection, ResidentCollection, counters, updateCounter, ResidentStayCollection, EventCollection, DisciplineCollection } from './models/schema.js';
 //Pathing
 const templatePath = path.join(__dirname, './templates');
 app.use(express.static('dist'));
@@ -15,7 +15,15 @@ app.set('view engine', 'hbs');
 app.set('views', templatePath);
 app.use(express.urlencoded({ extended: false }));
 import bcrypt from "bcryptjs";
+import Handlebars from "hbs";
+//helpers to format dates in html
+import helpers from 'handlebars-helpers';
+import momentHandler from 'handlebars.moment';
+momentHandler.registerHelpers(Handlebars);
 connectDB();
+
+
+
 //*****************************************  SPRINT 1 Login  *********************************************************************************//
 app.get('/', (req, res) => {
     res.render('login');
@@ -128,11 +136,28 @@ app.post('/root/setup', async (req, res) => {
 app.get('/root/home', (req, res) => {
     res.render('root/home');
 });
-app.post('/root/home', (req, res) => {
-    // INSERT PROVIDED SERVICE
-    res.render('root/home');
+app.post('/root/home', async(req, res) => {
+
+    const stayData = {
+        forResident: req.body.residentID,
+        checkIn: new Date()
+    }
+
+    await ResidentStayCollection.insertMany([stayData]);
+
+    var resident = await ResidentCollection.findOne({residentID:stayData.forResident});
+    var stays = await ResidentStayCollection.find({forResident:stayData.forResident});
+    var profileData = {
+        resident: resident,
+        stays: stays
+    }
+    // TODO RENDER PROFILE PAGE WITH LIST OF STAYS
+    res.render('root/resident-profile', { resident: resident, data:stays });
 });
 
+// app.get('/root/resident-services', (req,res)=>{
+//     res.render('root/resident-services');
+// })
 // Record resident service
 app.get('/root/resident-services', (req, res) => {
     res.render('root/resident-services');
@@ -141,16 +166,12 @@ app.post('/root/resident-services', (req, res) => {
     res.render('root/resident-services');
 });
 
-// initalize global search results
-
 app.get('/root/resident-search-by-name', (req, res) => {
     res.render('root/resident-search-by-name');
 });
 app.post('/root/resident-search-by-name', async (req, res) => {
     var resultArray = [];
-    // Reset results array every time search button is pressed
-    //resultArray.length = 0;
-    //TODO PROVIDE LIST OF MATCHING RESIDENTS via form input
+
     const queryData = [
         { firstName: req.body.firstName },
         { lastName: req.body.lastName }
@@ -167,14 +188,19 @@ app.post('/root/resident-search-by-feature', (req, res) => {
     res.redirect('back');
 });
 app.get('/root/add-resident-profile', (req, res) => {
-    res.render('root/add-resident-profile');
+    res.render('root/add-resident-profile.hbs');
 });
 app.post('/root/add-resident-profile', async (req, res) => {
     //TODO Popup with resident id
+
+    // Format dob to dd/mm/yyyy
     const dob = new Date(req.body.dob).toLocaleDateString();
+
+    //Increment residentID
     await updateCounter();
     var count = await counters.findOne({}, { seq: 1, _id: 0 });
     var newResidentID = count.seq;
+
     const resident = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -189,7 +215,7 @@ app.post('/root/add-resident-profile', async (req, res) => {
     };
     await ResidentCollection.insertMany([resident]);
     // TODO if not popup, redirect with profile page for resident with id
-    res.render('root/add-resident-profile');
+    res.render('root/add-resident-profile.hbs');
     // TODO interate thru each span to get values for feature array <span class="tag label label-info">tattoos<span data-role="remove">
 });
 //***********************************************  SPRINT 4  *****************************************************************************//

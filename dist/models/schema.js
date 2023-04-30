@@ -1,16 +1,4 @@
-//var requirejs = require('requirejs');
-// require(['require', 'mongoose'], function(require) {
-// });
 import mongoose from 'mongoose';
-//import Inc from 'mongoose-sequence';
-//const AutoIncrement = Inc(mongoose);
-//onst { Schema } = require("mongoose");
-//let mongoose = require('mongoose')
-//var moduleName = 'mongoose';
-//require([moduleName], function(fooModule){
-// do something with fooModule
-//const connection = mongoose.createConnection("mongodb+srv://client-access:4pnVVFDmaCrZ9Hok@cluster.u2fc0fu.mongodb.net/sarst")
-//Inc.initialize(connection);
 export function connectDB() {
     mongoose.connect("mongodb+srv://client-access:4pnVVFDmaCrZ9Hok@cluster.u2fc0fu.mongodb.net/sarst")
         .then(() => {
@@ -19,34 +7,8 @@ export function connectDB() {
         .catch(() => {
         console.log("failed to connect");
     });
-    //const db = mongoose.connection;
-    // db.collection("ResidentCollection").createIndex({residentID : 1}, {unique : true});
 }
 export const db = mongoose.connection;
-// export function insertDocument(doc, targetCollection) {
-//     while (1) {
-//
-//         var cursor = targetCollection.find( {}, { _id: 1 } ).sort( { _id: -1 } ).limit(1);
-//         var seq;
-//         if( cursor._id == 0) {
-//             seq = 1;
-//         } else {
-//             seq = cursor.next()._id + 1;
-//         }
-//         doc._id = seq;
-//
-//         var results = targetCollection.insertMany([doc]);
-//
-//         if( results.hasWriteError() ) {
-//             if( results.writeError.code == 11000 /* dup key */ )
-//                 continue;
-//             else
-//                 console.log( "unexpected error inserting data: ");
-//         }
-//
-//         break;
-//     }
-//}
 // LOGIN REGISTRATION SCHEMA
 const LogInSchema = new mongoose.Schema({
     firstName: {
@@ -70,12 +32,6 @@ const LogInSchema = new mongoose.Schema({
         required: true
     }
 });
-// const RoleSchema = new mongoose.Schema({
-//     title: {
-//         type: String,
-//         required: true
-//     }
-// })
 const ServiceSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -98,7 +54,6 @@ const ServiceSchema = new mongoose.Schema({
         required: false
     }
 });
-//TODO ResidentSchema
 const ResidentSchema = new mongoose.Schema({
     residentID: {
         type: Number,
@@ -181,7 +136,7 @@ const DisciplinaryActionSchema = new mongoose.Schema({
 //TODO ResidentStaySchema
 const ResidentStaySchema = new mongoose.Schema({
     forResident: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
         require: true
     },
     checkIn: {
@@ -189,16 +144,16 @@ const ResidentStaySchema = new mongoose.Schema({
         required: true
     },
     checkOut: {
-        type: Date,
-        required: true
+        type: Date
     },
     providedServices: {
-        type: [mongoose.Schema.Types.ObjectId],
-        required: true
+        type: [mongoose.Schema.Types.ObjectId]
     },
     events: {
-        type: [mongoose.Schema.Types.ObjectId],
-        required: false
+        type: [mongoose.Schema.Types.ObjectId]
+    },
+    disciplinaryActions: {
+        type: [mongoose.Schema.Types.ObjectId]
     }
 });
 export var IDCount;
@@ -220,3 +175,6 @@ export const RegistrationReqCollection = mongoose.model('registration-request', 
 export const ServicesCollection = mongoose.model('services', ServiceSchema);
 export const ResidentCollection = mongoose.model('residents', ResidentSchema);
 export const counters = mongoose.model('counters', CountersSchema, 'counters');
+export const EventCollection = mongoose.model('events', EventSchema);
+export const DisciplineCollection = mongoose.model('discipline', DisciplinaryActionSchema);
+export const ResidentStayCollection = mongoose.model('stays', ResidentStaySchema);
