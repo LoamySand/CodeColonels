@@ -1,83 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Root Home</title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Root Home</title>
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="/public/css/style.css">
-        <header class="nav-bar">
-            <div class = "nav-logo">
-                <img src = "/public/assets/images/shield.svg" alt="Salvation Army Logo">
-            </div>
-            <ul class="nav nav-tabs">
-                <!--Sprint 3-->
-                <li class="nav-item"><a class = "active" href="/root/home">Check-In Resident</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Record</a>
-                    <div class="dropdown-menu">
-                        <a class = "dropdown-item" href="/root/record-services">Provided Services</a>
-                        <a class = "dropdown-item" href="/root/record-events">Events</a>
-                        <a class = "dropdown-item" href="/root/record-discipline">Disciplinary Action</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Residents</a>
-                    <div class="dropdown-menu">
-                        <a class = "dropdown-item" href="/root/resident-search-by-name">Search By Name</a>
-                        <a class = "dropdown-item" href="/root/resident-search-by-feature">Search By Features</a>
-                        <a class = "dropdown-item" href="/root/add-resident-profile">New Resident</a>
-                    </div>
-                </li>
-                <li class="nav-item"><a class = "" href="/root/report-and-analysis">Generate Reports</a></li>
-                <li class="nav-item"><a class = "" href="/root/setup">Admin Set-Up</a></li>
-                <li class="nav-item"><a class = "" href="/root/registration-req">Review Registrations</a></li>
-            </ul>
-        </header>
-
-
-    <div class="container grayed-page">
-
-        <div class="row justify-content-center mb-4">
-            <h1>Check In and Checkout</h1>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+    <header class="nav-bar">
+        <div class = "nav-logo">
+            <img src = "/public/assets/images/shield.svg" alt="Salvation Army Logo">
         </div>
-        <div class="col my-auto p-4 border container w-50 form">
-            <div class="container justify-content-center">
-                <form class="form-horizontal" action="/root/home" method="post" id="searchByNameForm">
-                    <!-- Form Name -->
-                    <div class="form-row align-items-center">
-                        <!-- ID input-->
-                        <label class="form-label " for="residentID">
-                            <h6 class="check-label-h6">ResidentID:</h6>
-                        </label>
-                        <div class="input-group">
-                            <span class="input-group-text" id="">SAResidentID</span>
-                            <input class="form-control" id="residentID" name="residentID" type="text" placeholder="000000000" >
-                        </div>
-                    </div>
-                    <div class="form-row p-1">
-                        <div class="modal-footer">
-<!--                            //TODO add info button to popover tip for finding residentID-->
-                            <!-- Button -->
-                            <div class="col">
-                                <button type="submit" id="check_in_submit" name="action" value="checkIn" class="btn btn-primary mt-4 mb-4" >Check In</button>
-                            </div>
-                            <div class="col">
-                                <button type="submit" id="check_out_submit" name="action" value="checkOut" class="btn btn-primary mt-4 mb-4" >Check Out</button>
-                            </div>
-                        </div>
-                    </div>
-<!--                    TODO alert error of duplicate checkin/checkout-->
-<!--                    <div class="alert alert-danger" role="alert" id="check_in_dup">-->
-<!--                        Resident is already Checked in! Please Check out first.-->
-<!--                    </div>-->
-<!--                    <div class="alert alert-danger" role="alert" id="check_out_dup">-->
-<!--                        Resident is already Checked Out! Please Check In first.-->
-<!--                    </div>-->
-                </form>
+        <ul class="nav nav-tabs">
+            <!--Sprint 3-->
+            <li class="nav-item"><a class = "active" href="/root/home">Check-In Resident</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Record</a>
+                <div class="dropdown-menu">
+                    <a class = "dropdown-item" href="/root/record-services">Provided Services</a>
+                    <a class = "dropdown-item" href="/root/record-events">Events</a>
+                    <a class = "dropdown-item" href="/root/record-discipline">Disciplinary Action</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Residents</a>
+                <div class="dropdown-menu">
+                    <a class = "dropdown-item" href="/root/resident-search-by-name">Search By Name</a>
+                    <a class = "dropdown-item" href="/root/resident-search-by-feature">Search By Features</a>
+                    <a class = "dropdown-item" href="/root/add-resident-profile">New Resident</a>
+                </div>
+            </li>
+            <li class="nav-item"><a class = "" href="/root/report-and-analysis">Generate Reports</a></li>
+            <li class="nav-item"><a class = "" href="/root/setup">Admin Set-Up</a></li>
+            <li class="nav-item"><a class = "" href="/root/registration-req">Review Registrations</a></li>
+        </ul>
+    </header>
+
+        <div class="container grayed-page">
+
+            <div class="row justify-content-center mb-4">
+                <h1>Check In and Checkout</h1>
             </div>
+            <div class="col my-auto p-4 border container w-50 form">
+                <div class="container justify-content-center">
+                    <form class="form-horizontal" action="/root/home" method="post" id="searchByNameForm">
+                        <!-- Form Name -->
+                        <div class="form-row align-items-center">
+                            <!-- ID input-->
+                            <label class="form-label " for="residentID">
+                                <h6 class="check-label-h6">ResidentID:</h6>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="">SAResidentID</span>
+                                <input class="form-control" id="residentID" name="residentID" type="text" placeholder="000000000" >
+                            </div>
+                        </div>
+                        <div class="form-row p-1">
+                            <div class="modal-footer">
+    <!--                            //TODO add info button to popover tip for finding residentID-->
+                                <!-- Button -->
+                                <div class="col">
+                                    <button type="submit" id="check_in_submit" name="action" value="checkIn" class="btn btn-primary mt-4 mb-4" >Check In</button>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" id="check_out_submit" name="action" value="checkOut" class="btn btn-primary mt-4 mb-4" >Check Out</button>
+                                </div>
+                            </div>
+                        </div>
+    <!--                    TODO alert error of duplicate checkin/checkout-->
+    <!--                    <div class="alert alert-danger" role="alert" id="check_in_dup">-->
+    <!--                        Resident is already Checked in! Please Check out first.-->
+    <!--                    </div>-->
+    <!--                    <div class="alert alert-danger" role="alert" id="check_out_dup">-->
+    <!--                        Resident is already Checked Out! Please Check In first.-->
+    <!--                    </div>-->
+                    </form>
+                </div>
         </div>
         <!--container for footer links-->
         <div class="container">

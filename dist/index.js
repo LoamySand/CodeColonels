@@ -237,17 +237,16 @@ app.post('/root/record-events', async (req, res) => {
             notes: req.body.eventNotes
         };
         await EventCollection.insertMany([data]);
-        res.render('root/resident-profile');
+        // pulls up resident in resident collection to populate resident profile
+        var resident = await ResidentCollection.findOne({ residentID: req.body.residentID });
+        //pulls up all residentstays in collection to populate resident profile
+        var stays = await ResidentStayCollection.find({ forResident: req.body.residentID }).sort({ checkIn: -1 });
+        res.render('root/resident-profile', { resident: resident, data: stays });
     }
     else {
         //TODO Add popup alert instead of res.send
         res.send("Needs to be Checked in");
     }
-    // pulls up resident in resident collection to populate resident profile
-    var resident = await ResidentCollection.findOne({ residentID: req.body.residentID });
-    //pulls up all residentstays in collection to populate resident profile
-    var stays = await ResidentStayCollection.find({ forResident: req.body.residentID }).sort({ checkIn: -1 });
-    res.render('root/resident-profile', { resident: resident, data: stays });
 });
 app.get('/root/record-discipline', (req, res) => {
     res.render('root/record-discipline');
