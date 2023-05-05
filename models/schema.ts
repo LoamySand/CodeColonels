@@ -140,14 +140,14 @@ const DisciplinaryActionSchema = new mongoose.Schema({
 const ResidentStaySchema = new mongoose.Schema({
     forResident: {
         type: Number,
-        require: true
+        require: true,
     },
     checkIn: {
         type: Date,
         required: true
     },
     checkOut: {
-        type: Date
+        type: Date,
     },
     providedServices: {
         type: [mongoose.Schema.Types.ObjectId]

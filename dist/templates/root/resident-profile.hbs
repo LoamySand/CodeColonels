@@ -80,7 +80,7 @@
             <tbody>
                 <tr>
                 <td >{{moment checkIn format="YYYY-MM-DD hh:mm:ss"}}</td>
-                <td>{{checkOut}}</td>
+                    <td>{{#if checkOut}}{{{moment checkOut format="YYYY-MM-DD hh:mm:ss"}}}{{else}}None{{/if}}</td>
 <!--&lt;!&ndash;            <td>{{lastName}}</td>&ndash;&gt;-->
 <!--&lt;!&ndash;            <td>{{dob}}</td>&ndash;&gt;-->
 <!--&lt;!&ndash;            <td>{{features}}</td>&ndash;&gt;-->

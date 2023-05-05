@@ -138,19 +138,48 @@ app.get('/root/home', (req, res) => {
 });
 app.post('/root/home', async(req, res) => {
 
-    const stayData = {
-        forResident: req.body.residentID,
-        checkIn: new Date()
+    //TODO Remove modals, make one button for both check in and checkout.
+    var residentID;
+    var resident;
+    var stays;
+
+    if (req.body.action=='checkIn'){
+        //Checking In
+        residentID = req.body.checkInResidentID;
+        //Catch Duplicate check In. If checkout is found, query.length returns 0
+        var cursor = await ResidentStayCollection.find({$and: [{forResident:residentID}, {checkOut: {$exists: false}}, {checkIn: {$exists: true}}]}, {}).sort({checkIn:-1}).limit(1);
+        var isDup = cursor.length;
+        if(isDup==0){
+
+            var stayData = {
+                forResident: req.body.checkInResidentID,
+                checkIn: new Date()
+            }
+            //Inserts residentstay in collection if checking in
+            await ResidentStayCollection.insertMany([stayData]);
+            // pulls up resident in resident collection to populate resident profile
+            resident = await ResidentCollection.findOne({residentID:residentID});
+            //pulls up all residentstays in collection to populate resident profile
+            stays = await ResidentStayCollection.find({forResident:residentID}).sort({checkIn:-1});
+        } else {
+            res.send("Please checkout resident");
+        }
+    } else {
+        //Checking Out
+        residentID = req.body.checkOutResidentID;
+        // TODO Catch Duplicate check out.
+        //TODO update resident stay if checking out
+
+        //Edits residentstay
+        var updateID = await ResidentStayCollection.find({$and: [{forResident:residentID}, {checkOut: {$exists: false}}]}, {"_id": 1}).sort({checkIn:-1}).limit(1);
+        await ResidentStayCollection.updateOne({_id: updateID},{checkOut: new Date()});
+        // pulls up resident in resident collection to populate resident profile
+        resident = await ResidentCollection.findOne({residentID:residentID});
+        //pulls up all residentstays in collection to populate resident profile
+        stays = await ResidentStayCollection.find({forResident:residentID}).sort({checkIn:-1});
     }
 
-    await ResidentStayCollection.insertMany([stayData]);
 
-    var resident = await ResidentCollection.findOne({residentID:stayData.forResident});
-    var stays = await ResidentStayCollection.find({forResident:stayData.forResident});
-    var profileData = {
-        resident: resident,
-        stays: stays
-    }
     // TODO RENDER PROFILE PAGE WITH LIST OF STAYS
     res.render('root/resident-profile', { resident: resident, data:stays });
 });
