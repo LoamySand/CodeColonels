@@ -104,7 +104,7 @@ const CountersSchema = new mongoose.Schema({
 //TODO EventsSchema
 const EventSchema = new mongoose.Schema({
     forResident: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
         require: true
     },
     date: {
