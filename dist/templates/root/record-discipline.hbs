@@ -47,7 +47,7 @@
     </div>
     <div class="col my-auto p-4 border container w-50 form">
         <div class="container">
-            <form class="form-horizontal" action="/root/record-events" method="post" id="recordEventForm">
+            <form class="form-horizontal" action="/root/record-discipline" method="post" id="recordEventForm">
                 <!-- Form Name -->
                 <div class="form-row ">
                     <!-- ID input-->
@@ -87,13 +87,13 @@
                     </label>
                 </div>
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" name="LastChanceContract" id="LastChance" value="Last Chance Contract">
+                    <input class="form-check-input" type="radio" name="discipline" id="LastChance" value="Last Chance Contract">
                     <label class="form-check-label" for="requestedRoot">
                         Last Chance Contract
                     </label>
                 </div>
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" name="StepAway" id="StepAway" value="Step Away">
+                    <input class="form-check-input" type="radio" name="discipline" id="StepAway" value="Step Away">
                     <label class="form-check-label" for="requestedRoot">
                         Step Away
                     </label>
@@ -109,7 +109,7 @@
                     <!--                        //TODO add info button to popover tip for finding residentID-->
                     <!-- Button -->
                     <div class="col">
-                        <button type="submit" id="check_in_submit" name="action" value="checkIn" class="btn btn-primary mt-4 mb-4" >Record Discipline</button>
+                        <button type="submit" id="disciplineSubmit" name="action" value="disciplineSubmit" class="btn btn-primary mt-4 mb-4" >Record Discipline</button>
                     </div>
                 </div>
             </form>

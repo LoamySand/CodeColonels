@@ -116,7 +116,7 @@ const EventSchema = new mongoose.Schema({
 //TODO DisciplinaryActionSchema
 const DisciplinaryActionSchema = new mongoose.Schema({
     forResident: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Number,
         require: true
     },
     date: {
@@ -190,6 +190,6 @@ export const ServicesCollection = mongoose.model('services', ServiceSchema);
 export const ResidentCollection = mongoose.model('residents', ResidentSchema);
 export const counters = mongoose.model('counters', CountersSchema, 'counters');
 export const EventCollection = mongoose.model('events', EventSchema);
-export const DisciplineCollection = mongoose.model('discipline', DisciplinaryActionSchema);
+export const DisciplineCollection = mongoose.model('disciplines', DisciplinaryActionSchema);
 export const ResidentStayCollection = mongoose.model('stays', ResidentStaySchema);
 export const ProvidedServiceCollection = mongoose.model('provided-services', ProvidedServiceSchema);
