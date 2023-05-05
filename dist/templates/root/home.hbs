@@ -37,95 +37,74 @@
         <div class="row justify-content-center mb-4">
             <h1>Check In and Checkout</h1>
         </div>
-        <div class="col mx-auto p-3 w-50">
-            <div class="row">
-                <div class="col-6 text-center">
-                <button type="button" id="check_in_btn" name="check_in_btn" class="btn btn-lg btn-primary mt-4 mb-4" data-toggle="modal" data-target="#checkInModal">Check In</button>
-                </div>
-                <div class="col-6 text-center">
-                <button type="button" id="check_out_btn" name="check_out_btn" class="btn btn-lg btn-primary mt-4 mb-4" data-toggle="modal" data-target="#checkOutModal">Check Out</button>
-                </div>
+        <div class="col my-auto p-4 border container w-50 form">
+            <div class="container justify-content-center">
+                <form class="form-horizontal" action="/root/home" method="post" id="searchByNameForm">
+                    <!-- Form Name -->
+                    <div class="form-row align-items-center">
+                        <!-- ID input-->
+                        <label class="form-label " for="residentID">
+                            <h6 class="check-label-h6">ResidentID:</h6>
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="">SAResidentID</span>
+                            <input class="form-control" id="residentID" name="residentID" type="text" placeholder="000000000" >
+                        </div>
+                    </div>
+                    <div class="form-row p-1">
+                        <div class="modal-footer">
+                            //TODO add info button to popover tip for finding residentID
+                            <!-- Button -->
+                            <div class="col">
+                                <button type="submit" id="check_in_submit" name="action" value="checkIn" class="btn btn-primary mt-4 mb-4" >Check In</button>
+                            </div>
+                            <div class="col">
+                                <button type="submit" id="check_out_submit" name="action" value="checkOut" class="btn btn-primary mt-4 mb-4" >Check Out</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
+<!--        &lt;!&ndash;        Check Out modal&ndash;&gt;-->
+<!--        <div class="modal modal-fade" id="checkOutModal" tabindex="-1" role="dialog" aria-labelledby="checkOutModalLabel" aria-hidden="true">-->
 
-<!--        Check in modal-->
-        <div class="modal modal-fade" id="checkInModal" tabindex="-1" role="dialog" aria-labelledby="checkInModalLabel" aria-hidden="true">
+<!--            <div class="modal-dialog" role="document">-->
+<!--                <div class="modal-content">-->
+<!--                    <div class="modal-header">-->
+<!--                        <legend class=" modal-title mt-0 mb-4" id="checkOutModalLabel">Check Out Resident</legend>-->
+<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                            <span aria-hidden="true">&times;</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                    <div class="modal-body">-->
+<!--                        <form class="form-horizontal" action="/root/home" method="post" id="searchByNameForm">-->
+<!--                            &lt;!&ndash; Form Name &ndash;&gt;-->
 
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <legend class=" modal-title mt-0 mb-4" id="checkInModalLabel">Check In Resident</legend>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                  </div>
-                <div class="modal-body">
-                        <form class="form-horizontal" action="/root/home" method="post" id="searchByNameForm">
-                            <!-- Form Name -->
-
-                            <div class="form-row align-items-center">
-                                <!-- ID input-->
-                                <label class="form-label " for="residentID">
-                                    <h6 class="check-label-h6">ResidentID:</h6>
-                                </label>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="">SAResidentID</span>
-                                    <input class="form-control" id="checkInResidentID" name="checkInResidentID" type="text" placeholder="000000000" >
-                                </div>
-                            </div>
-                            <div class="form-row p-1">
-                                <div class="modal-footer">
-                                    //TODO add info button to popover tip for finding residentID
-                                    <!-- Button -->
-                                    <div class="col">
-                                        <button type="submit" id="check_in_submit" name="action" value="checkIn" class="btn btn-primary mt-4 mb-4" >Check In</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-        </div>
-        </div>
-        <!--        Check Out modal-->
-        <div class="modal modal-fade" id="checkOutModal" tabindex="-1" role="dialog" aria-labelledby="checkOutModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <legend class=" modal-title mt-0 mb-4" id="checkOutModalLabel">Check Out Resident</legend>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form-horizontal" action="/root/home" method="post" id="searchByNameForm">
-                            <!-- Form Name -->
-
-                            <div class="form-row align-items-center">
-                                <!-- ID input-->
-                                <label class="form-label " for="residentID">
-                                    <h6 class="check-label-h6">ResidentID:</h6>
-                                </label>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="">SAResidentID</span>
-                                    <input class="form-control" id="checkOutResidentID" name="checkOutResidentID" type="text" placeholder="000000000">
-                                </div>
-                            </div>
-                            <div class="form-row p-1">
-                                <div class="modal-footer">
-                                    //TODO add info button to popover tip for finding residentID
-                                    <!-- Button -->
-                                    <div class="col">
-                                        <button type="submit" id="check_out_submit" name="action" value="checkOut" class="btn btn-primary mt-4 mb-4">Check Out</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--                            <div class="form-row align-items-center">-->
+<!--                                &lt;!&ndash; ID input&ndash;&gt;-->
+<!--                                <label class="form-label " for="residentID">-->
+<!--                                    <h6 class="check-label-h6">ResidentID:</h6>-->
+<!--                                </label>-->
+<!--                                <div class="input-group">-->
+<!--                                    <span class="input-group-text" id="">SAResidentID</span>-->
+<!--                                    <input class="form-control" id="checkOutResidentID" name="checkOutResidentID" type="text" placeholder="000000000">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="form-row p-1">-->
+<!--                                <div class="modal-footer">-->
+<!--                                    //TODO add info button to popover tip for finding residentID-->
+<!--                                    &lt;!&ndash; Button &ndash;&gt;-->
+<!--                                    <div class="col">-->
+<!--                                        <button type="submit" id="check_out_submit" name="action" value="checkOut" class="btn btn-primary mt-4 mb-4">Check Out</button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <!--container for footer links-->
         <div class="container">
             <hr>

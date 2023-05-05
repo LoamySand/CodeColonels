@@ -131,19 +131,17 @@ app.get('/root/home', (req, res) => {
     res.render('root/home');
 });
 app.post('/root/home', async (req, res) => {
-    //TODO Remove modals, make one button for both check in and checkout.
-    var residentID;
+    var residentID = req.body.residentID;
     var resident;
     var stays;
+    var cursor = await ResidentStayCollection.find({ $and: [{ forResident: residentID }, { checkOut: { $exists: false } }, { checkIn: { $exists: true } }] }, {}).sort({ checkIn: -1 }).limit(1);
+    var isDup = cursor.length;
     if (req.body.action == 'checkIn') {
         //Checking In
-        residentID = req.body.checkInResidentID;
         //Catch Duplicate check In. If checkout is found, query.length returns 0
-        var cursor = await ResidentStayCollection.find({ $and: [{ forResident: residentID }, { checkOut: { $exists: false } }, { checkIn: { $exists: true } }] }, {}).sort({ checkIn: -1 }).limit(1);
-        var isDup = cursor.length;
         if (isDup == 0) {
             var stayData = {
-                forResident: req.body.checkInResidentID,
+                forResident: req.body.residentID,
                 checkIn: new Date()
             };
             //Inserts residentstay in collection if checking in
@@ -154,12 +152,12 @@ app.post('/root/home', async (req, res) => {
             stays = await ResidentStayCollection.find({ forResident: residentID }).sort({ checkIn: -1 });
         }
         else {
+            //TODO popover tip
             res.send("Please checkout resident");
         }
     }
-    else {
+    else if (isDup == 1) {
         //Checking Out
-        residentID = req.body.checkOutResidentID;
         // TODO Catch Duplicate check out.
         //TODO update resident stay if checking out
         //Edits residentstay
@@ -169,6 +167,10 @@ app.post('/root/home', async (req, res) => {
         resident = await ResidentCollection.findOne({ residentID: residentID });
         //pulls up all residentstays in collection to populate resident profile
         stays = await ResidentStayCollection.find({ forResident: residentID }).sort({ checkIn: -1 });
+    }
+    else {
+        //TODO popover tip
+        res.send("Please checkin resident");
     }
     // TODO RENDER PROFILE PAGE WITH LIST OF STAYS
     res.render('root/resident-profile', { resident: resident, data: stays });
