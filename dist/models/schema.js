@@ -167,6 +167,20 @@ export async function updateCounter() {
     IDCount = IDCount.seq;
 }
 ;
+const ProvidedServiceSchema = new mongoose.Schema({
+    forResident: {
+        type: Number,
+        require: true,
+    },
+    date: {
+        type: Date,
+        required: true
+    },
+    service: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }
+});
 // LOGIN REGISTRATION SCHEMA
 export const UserCollection = mongoose.model('users', LogInSchema);
 export const RegistrationReqCollection = mongoose.model('registration-request', LogInSchema);
@@ -178,3 +192,4 @@ export const counters = mongoose.model('counters', CountersSchema, 'counters');
 export const EventCollection = mongoose.model('events', EventSchema);
 export const DisciplineCollection = mongoose.model('discipline', DisciplinaryActionSchema);
 export const ResidentStayCollection = mongoose.model('stays', ResidentStaySchema);
+export const ProvidedServiceCollection = mongoose.model('provided-services', ProvidedServiceSchema);

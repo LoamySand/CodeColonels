@@ -6,7 +6,7 @@ import path from 'path';
 import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-import { UserCollection, RegistrationReqCollection, connectDB, ServicesCollection, ResidentCollection, counters, updateCounter, ResidentStayCollection } from './models/schema.js';
+import { UserCollection, RegistrationReqCollection, connectDB, ServicesCollection, ResidentCollection, counters, updateCounter, ResidentStayCollection, ProvidedServiceCollection } from './models/schema.js';
 //Pathing
 const templatePath = path.join(__dirname, './templates');
 app.use(express.static('dist'));
@@ -174,9 +174,6 @@ app.post('/root/home', async (req, res) => {
     // TODO RENDER PROFILE PAGE WITH LIST OF STAYS WITH DISCIPLINE SERVICES AND EVENTS
     res.render('root/resident-profile', { resident: resident, data: stays });
 });
-// app.get('/root/resident-services', (req,res)=>{
-//     res.render('root/resident-services');
-// })
 // Record resident service
 app.get('/root/record-services', async (req, res) => {
     let services = ServicesCollection;
@@ -188,8 +185,44 @@ app.get('/root/record-services', async (req, res) => {
         res.send('No services');
     });
 });
-app.post('/root/record-services', (req, res) => {
-    res.render('root/record-services');
+app.post('/root/record-services', async (req, res) => {
+    //TODO Check that resident is checked in
+    var updateID = await ResidentStayCollection.find({ $and: [{ forResident: req.body.residentID }, { checkOut: { $exists: false } }] }, { "_id": 1 }).sort({ checkIn: -1 }).limit(1);
+    var isCheckedIn = updateID.length;
+    if (isCheckedIn == 1) {
+        //Obtain Object id of req.body.service
+        var serviceCursor = await ServicesCollection.findOne({ 'title': req.body.service }, { _id: 1 });
+        var serviceID = serviceCursor._id;
+        //add service to ProvidedServices Collection
+        const data = {
+            forResident: req.body.residentID,
+            date: new Date(),
+            service: serviceID
+        };
+        await ProvidedServiceCollection.insertMany([data]);
+        // add ProvidedService object ID to providedServices array of resident in resident collection
+        var providedCursor = await ProvidedServiceCollection.findOne(data, { _id: 1 });
+        var providedServiceID = providedCursor._id;
+        await ResidentStayCollection.updateOne({ _id: updateID }, { $push: { providedServices: providedServiceID } });
+        //TODO create string array of providedservice = [{title, date}]
+        //TODO pull up resident profile
+        var resident = await ResidentCollection.findOne({ residentID: req.body.residentID });
+        var stays = await ResidentStayCollection.find({ forResident: req.body.residentID }).sort({ checkIn: -1 });
+        // var providedServiceIDArray = await ResidentStayCollection.distinct("providedServices", { "forResident": 1})
+        //
+        // var titleArray = [];
+        // for (let i = 0; i < providedServiceIDArray.length; i++) {
+        //     var serviceCursor = await ProvidedServiceCollection.findOne({_id: providedServiceIDArray[i]}, {service: 1, _id:0});
+        //     var title = await ServicesCollection.findOne({_id: serviceCursor.service}, {title:1, _id:0});
+        //     titleArray.push(title.title);
+        // }
+        //TODO find resident stays, for each, create service object
+        res.render('root/resident-profile', { resident: resident, data: stays });
+    }
+    else {
+        //TODO Add popup alert instead of res.send
+        res.send("Needs to be Checked in");
+    }
 });
 app.get('/root/record-events', (req, res) => {
     res.render('root/record-events');

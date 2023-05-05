@@ -20,7 +20,7 @@
     <ul class="nav nav-tabs">
         <!--Sprint 3-->
         <li class="nav-item"><a class = "" href="/root/home">Check-In Resident</a></li>
-        <li class="nav-item"><a class = "" href="/root/resident-services">Record Services</a></li>
+        <li class="nav-item"><a class = "" href="/root/record-services">Record Services</a></li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" id="navbarDropdown"data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Residents</a>
             <div class="dropdown-menu">
@@ -80,7 +80,7 @@
             <tbody>
                 <tr>
                 <td >{{moment checkIn format="YYYY-MM-DD hh:mm:ss"}}</td>
-                    <td>{{#if checkOut}}{{{moment checkOut format="YYYY-MM-DD hh:mm:ss"}}}{{else}}None{{/if}}</td>
+                <td>{{#if checkOut}}{{{moment checkOut format="YYYY-MM-DD hh:mm:ss"}}}{{else}}None{{/if}}</td>
 <!--&lt;!&ndash;            <td>{{lastName}}</td>&ndash;&gt;-->
 <!--&lt;!&ndash;            <td>{{dob}}</td>&ndash;&gt;-->
 <!--&lt;!&ndash;            <td>{{features}}</td>&ndash;&gt;-->
