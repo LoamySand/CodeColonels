@@ -356,14 +356,14 @@ app.post('/root/add-resident-profile', async (req, res) => {
         pronouns: req.body.pronoun,
         dob: dob,
         residentID: newResidentID,
-        //TEST
-        features: ['blonde', 'blue eyes', 'luigi tattoo']
-        //
+        features: req.body.features
     };
     await ResidentCollection.insertMany([resident]);
-    // TODO if not popup, redirect with profile page for resident with id
-    res.render('root/add-resident-profile.hbs');
-    // TODO interate thru each span to get values for feature array <span class="tag label label-info">tattoos<span data-role="remove">
+    // pulls up resident in resident collection to populate resident profile
+    var residentInfo = await ResidentCollection.findOne({residentID:newResidentID});
+    //pulls up all residentstays in collection to populate resident profile
+    var stays = await ResidentStayCollection.find({forResident:newResidentID}).sort({checkIn:-1});
+    res.render('root/resident-profile', { resident: residentInfo, data:stays});\
 });
 //***********************************************  SPRINT 4  *****************************************************************************//
 //****************************************** Generate Reports  *************************************************************//
