@@ -47,50 +47,35 @@
     </div>
     <div class="col my-auto p-3 border container w-50 form">
         <div class="container justify-content-center">
-            <form class="form-horizontal" action="/root/resident-search-by-name" method="post" id="searchByFeatureForm">
+            <form class="form-horizontal" action="/root/resident-search-by-feature" method="post" id="searchByFeatureForm">
                 <!-- Form Name -->
                 <legend class="mt-0 mb-4">Search</legend>
-                <!--TODO FIGURE OUT CHIP INPUT SCRIPT FOR ADDING AND REMOVING INPUTS FROM ARRAY-->
-                <input class="tagInput" type="text" value="html,input,tag" data-role="tagsinput">
+
+                <input class="tagInput" type="text" value="" data-role="tagsinput" id="features" name="features">
                 <!-- Button -->
                 <div class="col-auto ml-4">
                    <!-- <button type="submit" id="search_btn" name="search_btn" class="btn btn-primary mt-4 mb-4">Search</button> -->
-                    <button type="button" id="search_btn" name="search_btn" class="btn btn-primary mt-4 mb-4"
-                        data-toggle="modal" data-target="#resultModal" form="searchByFeatureForm">Search</button>
+                    <button type="submit" id="search_btn" name="search_btn" class="btn btn-primary mt-4 mb-4" form="searchByFeatureForm">Search</button>
                 </div>
             </form>
         </div>
     </div>
     <hr>
 
- <!-- TESTING SEARCH RESULTS MODAL POP-UP -->
-    <!-- Modal -->
-<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="resultModal">Search Results</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- PERHAPS TO BE PLACED IN POPUP ON CLICK SEARCH -->
-    <div class="resultsContainer form col my-auto p-3 border container">
+    <div class="resultsContainer form col my-auto p-3 border container ">
         <div class="label row justify-content-center mb-4">
             <h2>Results</h2>
         </div>
         <table class="resultsTable table table-striped" id="resultsTable">
             <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Date of Birth</th>
-                    <th scope="col">Features</th>
-    <!--PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID-->
-
-                </tr>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Features</th>
+                <!--PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID-->
+            </tr>
             </thead>
             <tbody>
             {{#each data}}
@@ -105,13 +90,55 @@
             </tbody>
         </table>
     </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+ <!-- TESTING SEARCH RESULTS MODAL POP-UP -->
+<!--    &lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog modal-lg" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="resultModal">Search Results</h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        &lt;!&ndash; PERHAPS TO BE PLACED IN POPUP ON CLICK SEARCH &ndash;&gt;-->
+<!--    <div class="resultsContainer form col my-auto p-3 border container">-->
+<!--        <div class="label row justify-content-center mb-4">-->
+<!--            <h2>Results</h2>-->
+<!--        </div>-->
+<!--        <table class="resultsTable table table-striped" id="resultsTable">-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th scope="col">ID</th>-->
+<!--                    <th scope="col">First</th>-->
+<!--                    <th scope="col">Last</th>-->
+<!--                    <th scope="col">Date of Birth</th>-->
+<!--                    <th scope="col">Features</th>-->
+<!--    &lt;!&ndash;PERHAPS DELETE ID COLUMN AND ALLOW USER TO CLICK ON A ROW AND TRIGGER POPUP WITH ID&ndash;&gt;-->
+
+<!--                </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            {{#each data}}-->
+<!--                <tr class="residentMatch">-->
+<!--                    <th scope="row"><span>sarst</span>{{residentID}}</th>-->
+<!--                    <td>{{firstName}}</td>-->
+<!--                    <td>{{lastName}}</td>-->
+<!--                    <td>{{moment dob format="MM-DD-YYYY"}}</td>-->
+<!--                    <td>{{features}}</td>-->
+<!--                </tr>-->
+<!--            {{/each}}-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
             <!--            FOR USE WHEN DATABASE IS SUCCESFULLY QUERIED-->
             <!--            <thead>-->

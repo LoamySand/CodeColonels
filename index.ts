@@ -323,16 +323,24 @@ app.post('/root/resident-search-by-name', async (req, res) => {
         { firstName: req.body.firstName },
         { lastName: req.body.lastName }
     ];
-    var cursor = await ResidentCollection.find({ '$or': queryData });
+    var cursor = await ResidentCollection.find({ $or: queryData });
     await cursor.forEach(function (doc) { resultArray.push(doc); });
     res.render('root/resident-search-by-name', { data: resultArray });
 });
 app.get('/root/resident-search-by-feature', (req, res) => {
     res.render('root/resident-search-by-feature');
 });
-app.post('/root/resident-search-by-feature', (req, res) => {
+app.post('/root/resident-search-by-feature', async(req, res) => {
     //TODO PROVIDE LIST OF MATCHING RESIDENTS via chip input (or textField if needed)
-    res.redirect('back');
+    var resultArray = [];
+    var featuresArray = req.body.features.split(',');
+    var queryData=[];
+    for (let i=0; i<featuresArray.length; i++) {
+        queryData.push({features: featuresArray[i]});
+    }
+    var cursor = await ResidentCollection.find({$or: queryData});
+    //await cursor.forEach(function (doc) { resultArray.push(doc); });
+    res.render('root/resident-search-by-feature', { data: cursor });
 });
 app.get('/root/add-resident-profile', (req, res) => {
     res.render('root/add-resident-profile.hbs');
@@ -347,7 +355,7 @@ app.post('/root/add-resident-profile', async (req, res) => {
     await updateCounter();
     var count = await counters.findOne({}, { seq: 1, _id: 0 });
     var newResidentID = count.seq;
-
+    var featuresArray = req.body.features.split(',');
     const resident = {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -356,14 +364,14 @@ app.post('/root/add-resident-profile', async (req, res) => {
         pronouns: req.body.pronoun,
         dob: dob,
         residentID: newResidentID,
-        features: req.body.features
+        features: featuresArray
     };
     await ResidentCollection.insertMany([resident]);
     // pulls up resident in resident collection to populate resident profile
     var residentInfo = await ResidentCollection.findOne({residentID:newResidentID});
     //pulls up all residentstays in collection to populate resident profile
     var stays = await ResidentStayCollection.find({forResident:newResidentID}).sort({checkIn:-1});
-    res.render('root/resident-profile', { resident: residentInfo, data:stays});\
+    res.render('root/resident-profile', { resident: residentInfo, data:stays});
 });
 //***********************************************  SPRINT 4  *****************************************************************************//
 //****************************************** Generate Reports  *************************************************************//
