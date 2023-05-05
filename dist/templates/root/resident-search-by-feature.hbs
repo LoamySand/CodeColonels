@@ -20,9 +20,16 @@
     <ul class="nav nav-tabs">
         <!--Sprint 3-->
         <li class="nav-item"><a class = "" href="/root/home">Check-In Resident</a></li>
-        <li class="nav-item"><a class = "" href="/root/resident-services">Record Services</a></li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" id="navbarDropdown" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Residents</a>
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Record</a>
+            <div class="dropdown-menu">
+                <a class = "dropdown-item" href="/root/record-services">Provided Services</a>
+                <a class = "dropdown-item" href="/root/record-events">Events</a>
+                <a class = "dropdown-item" href="/root/record-discipline">Disciplinary Action</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" id="navbarDropdown" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Residents</a>
             <div class="dropdown-menu">
                 <a class = "dropdown-item" href="/root/resident-search-by-name">Search By Name</a>
                 <a class = "dropdown-item" href="/root/resident-search-by-feature">Search By Features</a>

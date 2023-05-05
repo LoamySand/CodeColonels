@@ -16,6 +16,15 @@ app.set('views', templatePath);
 app.use(express.urlencoded({ extended: false }));
 import bcrypt from "bcryptjs";
 import Handlebars from "hbs";
+
+// FLASH ALERTS
+// import flash from 'connect-flash';
+// app.use(flash());
+// app.use(function(req, res, next){
+//     res.locals.success = req.flash('success');
+//     res.locals.errors = req.flash('error');
+//     next();
+// });
 //helpers to format dates in html
 import helpers from 'handlebars-helpers';
 import momentHandler from 'handlebars.moment';
@@ -76,6 +85,7 @@ app.post('/signup', async (req, res) => {
     };
     await RegistrationReqCollection.insertMany([data]);
     //TODO Add info popup instructing user to wait
+    // req.flash('success', 'Please wait for your registration to be reviewed');
     res.render('login'); // Once user signups, redirected to login page (Was home page)
 });
 //DEBUG TEST PROVIDER email=LDown@gmail.com password=password
@@ -188,13 +198,34 @@ app.post('/root/home', async(req, res) => {
 //     res.render('root/resident-services');
 // })
 // Record resident service
-app.get('/root/resident-services', (req, res) => {
-    res.render('root/resident-services');
+app.get('/root/record-services', async(req, res) => {
+    let services = ServicesCollection;
+    await services.find({})
+        .then((requestData) => {
+            res.render('root/record-services', { data: requestData });
+        })
+        .catch((err) => {
+            res.send('No services');
+        });
 });
-app.post('/root/resident-services', (req, res) => {
-    res.render('root/resident-services');
+app.post('/root/record-services', (req, res) => {
+    res.render('root/record-services');
 });
 
+app.get('/root/record-events',(req, res) => {
+    res.render('root/record-events');
+});
+app.post('/root/record-events', (req, res) => {
+    res.render('root/record-events');
+});
+app.get('/root/record-discipline',(req, res) => {
+    res.render('root/record-discipline');
+});
+app.post('/root/record-discipline',(req, res) => {
+    res.render('root/record-discipline');
+});
+
+// Search residents
 app.get('/root/resident-search-by-name', (req, res) => {
     res.render('root/resident-search-by-name');
 });

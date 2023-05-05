@@ -71,6 +71,7 @@ app.post('/signup', async (req, res) => {
     };
     await RegistrationReqCollection.insertMany([data]);
     //TODO Add info popup instructing user to wait
+    // req.flash('success', 'Please wait for your registration to be reviewed');
     res.render('login'); // Once user signups, redirected to login page (Was home page)
 });
 //DEBUG TEST PROVIDER email=LDown@gmail.com password=password
@@ -135,11 +136,11 @@ app.post('/root/home', async (req, res) => {
     var resident;
     var stays;
     var cursor = await ResidentStayCollection.find({ $and: [{ forResident: residentID }, { checkOut: { $exists: false } }, { checkIn: { $exists: true } }] }, {}).sort({ checkIn: -1 }).limit(1);
-    var isDup = cursor.length;
+    var isCheckedIn = cursor.length;
     if (req.body.action == 'checkIn') {
         //Checking In
         //Catch Duplicate check In. If checkout is found, query.length returns 0
-        if (isDup == 0) {
+        if (isCheckedIn == 0) {
             var stayData = {
                 forResident: req.body.residentID,
                 checkIn: new Date()
@@ -156,10 +157,8 @@ app.post('/root/home', async (req, res) => {
             res.send("Please checkout resident");
         }
     }
-    else if (isDup == 1) {
+    else if (isCheckedIn == 1) {
         //Checking Out
-        // TODO Catch Duplicate check out.
-        //TODO update resident stay if checking out
         //Edits residentstay
         var updateID = await ResidentStayCollection.find({ $and: [{ forResident: residentID }, { checkOut: { $exists: false } }] }, { "_id": 1 }).sort({ checkIn: -1 }).limit(1);
         await ResidentStayCollection.updateOne({ _id: updateID }, { checkOut: new Date() });
@@ -172,19 +171,39 @@ app.post('/root/home', async (req, res) => {
         //TODO popover tip
         res.send("Please checkin resident");
     }
-    // TODO RENDER PROFILE PAGE WITH LIST OF STAYS
+    // TODO RENDER PROFILE PAGE WITH LIST OF STAYS WITH DISCIPLINE SERVICES AND EVENTS
     res.render('root/resident-profile', { resident: resident, data: stays });
 });
 // app.get('/root/resident-services', (req,res)=>{
 //     res.render('root/resident-services');
 // })
 // Record resident service
-app.get('/root/resident-services', (req, res) => {
-    res.render('root/resident-services');
+app.get('/root/record-services', async (req, res) => {
+    let services = ServicesCollection;
+    await services.find({})
+        .then((requestData) => {
+        res.render('root/record-services', { data: requestData });
+    })
+        .catch((err) => {
+        res.send('No services');
+    });
 });
-app.post('/root/resident-services', (req, res) => {
-    res.render('root/resident-services');
+app.post('/root/record-services', (req, res) => {
+    res.render('root/record-services');
 });
+app.get('/root/record-events', (req, res) => {
+    res.render('root/record-events');
+});
+app.post('/root/record-events', (req, res) => {
+    res.render('root/record-events');
+});
+app.get('/root/record-discipline', (req, res) => {
+    res.render('root/record-discipline');
+});
+app.post('/root/record-discipline', (req, res) => {
+    res.render('root/record-discipline');
+});
+// Search residents
 app.get('/root/resident-search-by-name', (req, res) => {
     res.render('root/resident-search-by-name');
 });
