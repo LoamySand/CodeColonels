@@ -44,11 +44,18 @@ momentHandler.registerHelpers(Handlebars);
 connectDB();
 
 
+// TODO MUSTS
+// TODO approve / deny registration request 1. delete row from table 2. delete from requests table and 3. if approve, move to users table
+// TODO populate resident profile page with stays including 1. check in checkout 2. services provided during stay 3. events during stay 4. discipline during stay
+// TODO Generate CSV File of stays from timeframe
+// TODO Add alerts in place of res.send
+
 
 //*****************************************  SPRINT 1 Login  *********************************************************************************//
 app.get('/', (req, res) => {
     res.render('login');
 });
+
 app.post('/login', async (req, res) => {
     try {
         const check = await UserCollection.findOne({
@@ -77,7 +84,11 @@ app.post('/login', async (req, res) => {
     }
     catch {
         //TODO MAKE THIS A POPUP OR A SCREEN WITH A BACK OPTION
-        res.send("Wrong details");
+        alert.notify({
+            title: 'Incorrect Details',
+            message: 'Hello, there!'
+        });
+        res.render('/');
     }
     //res.render('home') ???
 });
@@ -317,29 +328,25 @@ app.get('/root/resident-search-by-name', (req, res) => {
     res.render('root/resident-search-by-name');
 });
 app.post('/root/resident-search-by-name', async (req, res) => {
-    var resultArray = [];
 
     const queryData = [
         { firstName: req.body.firstName },
         { lastName: req.body.lastName }
     ];
     var cursor = await ResidentCollection.find({ $or: queryData });
-    await cursor.forEach(function (doc) { resultArray.push(doc); });
-    res.render('root/resident-search-by-name', { data: resultArray });
+    res.render('root/resident-search-by-name', { data: cursor });
 });
 app.get('/root/resident-search-by-feature', (req, res) => {
     res.render('root/resident-search-by-feature');
 });
 app.post('/root/resident-search-by-feature', async(req, res) => {
     //TODO PROVIDE LIST OF MATCHING RESIDENTS via chip input (or textField if needed)
-    var resultArray = [];
     var featuresArray = req.body.features.split(',');
     var queryData=[];
     for (let i=0; i<featuresArray.length; i++) {
         queryData.push({features: featuresArray[i]});
     }
     var cursor = await ResidentCollection.find({$or: queryData});
-    //await cursor.forEach(function (doc) { resultArray.push(doc); });
     res.render('root/resident-search-by-feature', { data: cursor });
 });
 app.get('/root/add-resident-profile', (req, res) => {

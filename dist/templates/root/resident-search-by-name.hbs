@@ -67,6 +67,7 @@
     </div>
     <hr>
     <div class="resultsContainer form col my-auto p-3 border container ">
+        {{#if data}}
         <div class="label row justify-content-center mb-4">
             <h2>Results</h2>
         </div>
@@ -92,6 +93,11 @@
                 </tr>
             {{/each}}
             </tbody>
+        {{else}}
+            <div class="label row justify-content-center mb-4">
+                <h2>No Results</h2>
+            </div>
+        {{/if}}
         </table>
     </div>
 
