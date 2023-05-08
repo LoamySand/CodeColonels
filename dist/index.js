@@ -16,7 +16,6 @@ app.set('views', templatePath);
 app.use(express.urlencoded({ extended: false }));
 import bcrypt from "bcryptjs";
 import Handlebars from "hbs";
-import alert from "node-notifier";
 import momentHandler from 'handlebars.moment';
 momentHandler.registerHelpers(Handlebars);
 connectDB();
@@ -57,10 +56,10 @@ app.post('/login', async (req, res) => {
     }
     catch {
         //TODO MAKE THIS A POPUP OR A SCREEN WITH A BACK OPTION
-        alert.notify({
-            title: 'Incorrect Details',
-            message: 'Hello, there!'
-        });
+        // alert.notify({
+        //     title: 'Incorrect Details',
+        //     message: 'Hello, there!'
+        // });
         res.render('/');
     }
     //res.render('home') ???
@@ -98,16 +97,15 @@ app.get('/root/registration-req', async (req, res) => {
     });
 });
 app.post('/root/registration-req'), async (req, res) => {
-    const data = {
-        _id: req.body._id,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password,
-        role: req.body.role
-    };
-    await UserCollection.insertMany([data]);
-    //res.send("An error has occured")
+    if (req.body.action == 'approve') {
+        var user = await RegistrationReqCollection.find({ _id: req.body.requestID });
+        await RegistrationReqCollection.deleteOne({ _id: req.body.requestID });
+        await UserCollection.insertMany([user]);
+    }
+    else if (req.body.action == 'deny') {
+        await RegistrationReqCollection.deleteOne({ _id: req.body.requestID });
+    }
+    res.render('root/registration-req');
 };
 //*****************************************  SPRINT 2  ********************************************************************************//
 //****************************************  Setup Services******************************************************************************//
