@@ -124,16 +124,19 @@ app.get('/root/registration-req', async (req, res) => {
             res.send('No registration requests');
         });
 });
-app.post('/root/registration-req'), async (req, res) => {
+app.post('/root/registration-req', async (req, res) => {
     if (req.body.action=='approve') {
-       var user = await RegistrationReqCollection.find({_id: req.body.requestID});
-       await RegistrationReqCollection.deleteOne({_id: req.body.requestID});
+       var user = await RegistrationReqCollection.findOne({_id: req.body.requestID});
+       await RegistrationReqCollection.deleteMany({_id: req.body.requestID});
        await UserCollection.insertMany([user]);
+        res.redirect('back');
     } else if (req.body.action=='deny') {
         await RegistrationReqCollection.deleteOne({_id: req.body.requestID});
+        res.redirect('back');
     }
     res.render('root/registration-req');
-};
+
+});
 //*****************************************  SPRINT 2  ********************************************************************************//
 //****************************************  Setup Services******************************************************************************//
 app.get('/root/setup', async (req, res) => {
