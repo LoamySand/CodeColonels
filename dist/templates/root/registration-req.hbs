@@ -44,7 +44,7 @@
         <div class="row justify-content-center">
             <h1>Registration Requests</h1>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center ml-3">
             <table class="registrationTable table table-striped" id="registrationTable">
                 <tr>
                     <thead>
@@ -67,17 +67,17 @@
                         {{/each}}
                     </tbody>
             </table>
-            <div class="col my-auto p-4 border container w-50 form sticky-top ml-3">
+            <div class="col my-auto p-4 border container w-50 form sticky-top ml-3 mr-3">
                 <div class="container justify-content-center">
-                <form class="form-horizontal" action="/root/registration-req" method="post">
-                    <legend class="mt-0 mb-4">Approve/Deny</legend>
-                    <label class="control-label" for="requestID">Request _id</label>
-                    <input id="requestID" name="requestID" type="text" placeholder="" class="form-control mb-2" required="">
-                    <div class="row mx-auto">
-                        <button class="btn" type="submit" name="action" id="approve_btn" value="approve" >Approve</button>
-                        <button class="btn" type="submit" name="action" id="deny_btn"  value="deny">Deny</button>
-                    </div>
-                </form>
+                    <form class="form-horizontal" action="/root/registration-req" method="post">
+                        <legend class="mt-0 mb-4">Approve/Deny</legend>
+                        <label class="control-label" for="requestID">Request _id</label>
+                        <input id="requestID" name="requestID" type="text" placeholder="" class="form-control my-3" required="">
+                        <div class="row mx-auto ">
+                            <button class="btn btn-primary col-4 mr-3" type="submit" name="action" id="approve_btn" value="approve" >Approve</button>
+                            <button class="btn btn-primary col-4 ml-3" type="submit" name="action" id="deny_btn"  value="deny">Deny</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
